@@ -9,6 +9,7 @@ tmp/**/*
 *~.nib
 local.properties
 .loadpath
+*.dia~
 
 # External tool builders
 .externalToolBuilders/
