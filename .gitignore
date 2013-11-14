@@ -1,6 +1,30 @@
-*.class
+*.pydevproject
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+# ZIPed project files
+*.zip
+
+# Logs
+error.log
+/bin
