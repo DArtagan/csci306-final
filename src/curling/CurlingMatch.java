@@ -7,12 +7,14 @@ public class CurlingMatch {
 	private int turn;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private HashMap<Team, LinkedList<Integer>> score;
+	private House house;
 
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
 		awayTeam = new LinkedList<Player>();
 		score.put(Team.HOME, new LinkedList<Integer>());
 		score.put(Team.AWAY, new LinkedList<Integer>());
+		house = new House();
 	}
 
 	public void formTeams() {
@@ -35,5 +37,9 @@ public class CurlingMatch {
 
 	public LinkedList<Player> getAwayTeam() {
 		return awayTeam;
+	}
+
+	public House getHouse() {
+		return house;
 	}
 }

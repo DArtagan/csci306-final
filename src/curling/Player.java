@@ -31,4 +31,8 @@ public class Player {
 	public Team getTeam() {
 		return team;
 	}
+
+	public HashSet<Stone> getStones() {
+		return stones;
+	}
 }
