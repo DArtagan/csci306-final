@@ -8,6 +8,7 @@ public class CurlingMatch {
 	private Player currentPlayer;
 	private boolean gameOver;
 	private HashMap<Team, LinkedList<Integer>> score;
+	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
 
 	public CurlingMatch() {
@@ -16,7 +17,6 @@ public class CurlingMatch {
 		score = new HashMap<Team, LinkedList<Integer>>();
 		score.put(Team.HOME, new LinkedList<Integer>());
 		score.put(Team.AWAY, new LinkedList<Integer>());
-		turn = 1;
 		score.get(Team.HOME).add(0);
 		score.get(Team.AWAY).add(0);
 		house = new House();
@@ -25,13 +25,6 @@ public class CurlingMatch {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
-	}
-
-	private LinkedList<Player> homeTeam, awayTeam;
-
 
 	public int getTurn() {
 		return turn;
@@ -62,15 +55,6 @@ public class CurlingMatch {
 	public LinkedList<Player> getAwayTeam() {
 		return awayTeam;
 	}
-
-	public boolean isGameOver() {
-		return gameOver;
-	}
-
-	public void setGameOver(boolean gameOver) {
-		this.gameOver = gameOver;
-	}
-
 
 	public House getHouse(){
 		return house;
