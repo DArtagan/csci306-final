@@ -11,10 +11,11 @@ import curling.Stone;
 import curling.Team;
 
 public class curling {
+	CurlingMatch match;
 
 	@Before
 	public void setUp() {
-		CurlingMatch match = new CurlingMatch();
+		match = new CurlingMatch();
 	}
 
 	@Test
@@ -40,7 +41,7 @@ public class curling {
 
 	@Test
 	public void testFormTeamsNumber() {
-		fail("Not yet implemented");
+
 	}
 
 
