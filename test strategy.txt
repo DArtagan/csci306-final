@@ -1,0 +1,22 @@
+# Tests
+
+## advanceTurn test
+* Test the set of two players currently throwing are on different teams
+* Test changing from a player of one team to the other and vice versa
+* Test that the round is over and the score is presented when advanceTurn is called and it is the last player’s turn
+
+## formTeams test
+* Check that each team has four members
+* Check that members of one team are not also members of the other team
+* Test that each member has one of the four Roles.
+
+## send test
+* Check that the number of stones that the player has sent has been decremented, each player should only be able to send two stones.
+* Check that every time a player sends a stone, the house gains a stone.
+* Check that when a player runs out of stones, if send is called again, a runtime exception is thrown.
+
+## compareTo test
+* Compare two stones and check which stone is closer to the center, check for returns closer, further, and equal. 
+calcScore test
+* Check to see that that the correct points are given for a stone in each of the zones
+* Check to see that home teams score increase the home team’s stones increase based on their stones and the away team’s point go up based on their stones
