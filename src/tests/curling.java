@@ -29,22 +29,40 @@ public class curling {
 
 	@Test
 	public void testAdvanceTurnChangePlayer() {
-		fail("Not yet implemented");
+		match.advanceTurn();//should be the first players turn
+		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().getFirst());// Home team lead player starts
+		match.advanceTurn();// change to the opponents turn
+		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().getFirst());// Away team lead player's first throw
+		match.advanceTurn();//should be home team's first player's turn
+		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().getFirst());// Home team lead player's second throw
 	}
 
 	@Test
 	public void testAdvanceTurnChangeSet() {
-		fail("Not yet implemented");
+		// advance turn four times so the second set of players come in
+		match.advanceTurn();
+		match.advanceTurn();
+		match.advanceTurn();
+		match.advanceTurn();
+		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(match.getTurn()));// Home team lead player starts
+		match.advanceTurn();// change to the opponents turn
+		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(match.getTurn()));// Away team lead player's first throw
+		match.advanceTurn();//should be home team's first player's turn
+		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(match.getTurn()));// Home team lead player's second throw
 	}
 
 	@Test
 	public void testAdvanceTurnNewGame() {
-		fail("Not yet implemented");
+		// Test that advancing the turn when no one is playing will start a new game
+		// The game turn should initialize to zero
 	}
 
 	@Test
 	public void testAdvanceTurnGameOver() {
-		fail("Not yet implemented");
+		// Test that advancing the turn at the last player will end the game
+		match.setTurn(4);//set the game to the final turn
+		// have the players
+		assertTrue(match.isGameOver());
 	}
 
 
