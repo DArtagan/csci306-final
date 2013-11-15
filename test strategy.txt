@@ -17,6 +17,7 @@
 
 ## compareTo test
 * Compare two stones and check which stone is closer to the center, check for returns closer, further, and equal. 
-calcScore test
+
+## calcScore test
 * Check to see that that the correct points are given for a stone in each of the zones
 * Check to see that home teams score increase the home team’s stones increase based on their stones and the away team’s point go up based on their stones
