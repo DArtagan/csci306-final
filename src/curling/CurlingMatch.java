@@ -8,7 +8,8 @@ public class CurlingMatch {
 	private LinkedList<Integer> score;
 
 	public CurlingMatch() {
-		// TODO Auto-generated constructor stub
+		homeTeam = new LinkedList<Player>();
+		awayTeam = new LinkedList<Player>();
 	}
 
 	public void formTeams() {
