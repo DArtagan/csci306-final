@@ -14,6 +14,9 @@ public class CurlingMatch {
 		awayTeam = new LinkedList<Player>();
 		score.put(Team.HOME, new LinkedList<Integer>());
 		score.put(Team.AWAY, new LinkedList<Integer>());
+		turn = 1;
+		score.get(Team.HOME).add(0);
+		score.get(Team.AWAY).add(0);
 		house = new House();
 	}
 

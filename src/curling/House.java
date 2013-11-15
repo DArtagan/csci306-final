@@ -1,5 +1,6 @@
 package curling;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class House {
@@ -11,8 +12,8 @@ public class House {
 		stones = new HashSet<Stone>();
 	}
 
-	public void calcScore() {
-
+	public HashMap<Team, Integer> calcScore() {
+		return null;
 	}
 
 	public void addStone(Stone stone) {

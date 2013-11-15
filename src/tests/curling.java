@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import curling.CurlingMatch;
+import curling.House;
 import curling.Player;
 import curling.Role;
 import curling.Stone;
@@ -67,11 +69,11 @@ public class curling {
 		boolean hasThird = false;
 		for (Player player : homeTeam) {
 			switch (player.getRole()) {
-				case SKIP: hasSkip = true; return;
-				case LEAD: hasLead = true; return;
-				case SECOND: hasSecond = true; return;
-				case THIRD: hasThird = true; return;
-				default: assertTrue(false); return;
+			case SKIP: hasSkip = true; return;
+			case LEAD: hasLead = true; return;
+			case SECOND: hasSecond = true; return;
+			case THIRD: hasThird = true; return;
+			default: assertTrue(false); return;
 			}
 		}
 		assertTrue(hasSkip);
@@ -86,11 +88,11 @@ public class curling {
 		hasThird = false;
 		for (Player player : awayTeam) {
 			switch (player.getRole()) {
-				case SKIP: hasSkip = true; return;
-				case LEAD: hasLead = true; return;
-				case SECOND: hasSecond = true; return;
-				case THIRD: hasThird = true; return;
-				default: assertTrue(false); return;
+			case SKIP: hasSkip = true; return;
+			case LEAD: hasLead = true; return;
+			case SECOND: hasSecond = true; return;
+			case THIRD: hasThird = true; return;
+			default: assertTrue(false); return;
 			}
 		}
 		assertTrue(hasSkip);
@@ -105,16 +107,16 @@ public class curling {
 		// Home team:
 		for (Player player : homeTeam) {
 			switch (player.getTeam()) {
-				case HOME: return;
-				default: assertTrue(false);
+			case HOME: return;
+			default: assertTrue(false);
 			}
 		}
 
 		// Away team:
 		for (Player player : awayTeam) {
 			switch (player.getTeam()) {
-				case AWAY: return;
-				default: assertTrue(false);
+			case AWAY: return;
+			default: assertTrue(false);
 			}
 		}
 	}
@@ -209,8 +211,56 @@ public class curling {
 	}
 
 	@Test
-	public void testCalcScorePoints() {
-		fail("Not yet implemented");
+	public void testScoreHouse() {
+		House house = match.getHouse();
+		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(null, 0));
+
+		house.addStone(new Stone(Team.HOME, 1, 2));
+		house.addStone(new Stone(Team.HOME, 2, 3));
+		house.addStone(new Stone(Team.AWAY, 9, 2));
+		house.addStone(new Stone(Team.AWAY, 3, 0));
+		house.addStone(new Stone(Team.HOME, 5, 1));
+		house.addStone(new Stone(Team.HOME, 6, 1));
+		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.HOME, 2));
+
+		house.addStone(new Stone(Team.AWAY, 3, 5));
+		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.HOME, 2));
+
+		house.addStone(new Stone(Team.AWAY, 0, 1));
+		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.AWAY, 1));
+	}
+
+	@Test
+	public void testScoreMatch() {
+		HashMap<Team, LinkedList<Integer>> scoreMap = new HashMap<Team, LinkedList<Integer>>();
+		LinkedList<Integer> homeScore = new LinkedList<Integer>();
+		LinkedList<Integer> awayScore = new LinkedList<Integer>();
+		scoreMap.put(Team.HOME, homeScore);
+		scoreMap.put(Team.AWAY, awayScore);
+
+		House house = match.getHouse();
+		house.addStone(new Stone(Team.HOME, 1, 2));
+		house.addStone(new Stone(Team.HOME, 2, 3));
+		house.addStone(new Stone(Team.AWAY, 9, 2));
+		house.addStone(new Stone(Team.AWAY, 3, 0));
+		house.addStone(new Stone(Team.HOME, 5, 1));
+		house.addStone(new Stone(Team.HOME, 6, 1));
+
+		assertEquals(match.getScore(), scoreMap);
+		homeScore.add(2);
+		awayScore.add(0);
+		scoreMap.put(Team.HOME, homeScore);
+		scoreMap.put(Team.AWAY, awayScore);
+		match.advanceTurn();
+		assertEquals(match.getScore(), scoreMap);
+
+		house.addStone(new Stone(Team.AWAY, 0, 1));
+		homeScore.add(0);
+		awayScore.add(1);
+		scoreMap.put(Team.HOME, homeScore);
+		scoreMap.put(Team.AWAY, awayScore);
+		match.advanceTurn();
+		assertEquals(match.getScore(), scoreMap);
 	}
 
 	@Test
