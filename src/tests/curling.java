@@ -15,10 +15,15 @@ import curling.Team;
 
 public class curling {
 	CurlingMatch match;
+	LinkedList<Player> homeTeam, awayTeam;
 
 	@Before
 	public void setUp() {
 		match = new CurlingMatch();
+
+		match.formTeams();
+		homeTeam = match.getHomeTeam();
+		awayTeam = match.getAwayTeam();
 	}
 
 	@Test
@@ -44,10 +49,6 @@ public class curling {
 
 	@Test
 	public void testFormTeamsNumber() {
-		match.formTeams();
-		LinkedList<Player> homeTeam = match.getHomeTeam();
-		LinkedList<Player> awayTeam = match.getAwayTeam();
-
 		// Test that each team has 4 players.
 		assertEquals(4, homeTeam.size());
 		assertEquals(4, awayTeam.size());
@@ -56,13 +57,9 @@ public class curling {
 
 	@Test
 	public void testFormTeamsComposition() {
-		match.formTeams();
-		LinkedList<Player> homeTeam = match.getHomeTeam();
-		LinkedList<Player> awayTeam = match.getAwayTeam();
+		// Test that each team has one player of each type.
 
-		// Test that each team has 4 players.
-		assertEquals(4, homeTeam.size());
-		assertEquals(4, awayTeam.size());
+		// Test that each member of each team has the correct team member variable.
 	}
 
 	@Test
