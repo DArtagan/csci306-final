@@ -72,4 +72,5 @@ public class CurlingMatch {
 	public House getHouse(){
 		return house;
 	}
+
 }

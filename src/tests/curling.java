@@ -56,6 +56,10 @@ public class curling {
 	public void testAdvanceTurnNewGame() {
 		// Test that advancing the turn when no one is playing will start a new game
 		// The game turn should initialize to zero
+		// do some stuff in the game
+		match.setTurn(15);// set the game to the last turn
+		match.advanceTurn();
+		assertEquals(0, match.getTurn());
 	}
 
 
