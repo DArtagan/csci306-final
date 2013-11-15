@@ -96,7 +96,10 @@ public class curling {
 		assertTrue(hasLead);
 		assertTrue(hasSecond);
 		assertTrue(hasThird);
+	}
 
+	@Test
+	public void testTeamMembersOnCorrectTeam() {
 		// Test that each member of each team has the correct team member variable.
 		// Home team:
 		for (Player player : homeTeam) {
