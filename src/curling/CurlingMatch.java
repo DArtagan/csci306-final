@@ -18,4 +18,12 @@ public class CurlingMatch {
 	public void advanceTurn() {
 
 	}
+
+	public LinkedList<Player> getHomeTeam() {
+		return homeTeam;
+	}
+
+	public LinkedList<Player> getAwayTeam() {
+		return awayTeam;
+	}
 }

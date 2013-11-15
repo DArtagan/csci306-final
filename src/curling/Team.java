@@ -1,5 +1,5 @@
 package curling;
 
 public enum Team {
-	THEIRS, OURS;
+	HOME, AWAY;
 }
