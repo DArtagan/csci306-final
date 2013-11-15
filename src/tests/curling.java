@@ -3,10 +3,13 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.LinkedList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import curling.CurlingMatch;
+import curling.Player;
 import curling.Stone;
 import curling.Team;
 
@@ -42,14 +45,24 @@ public class curling {
 	@Test
 	public void testFormTeamsNumber() {
 		match.formTeams();
-		match.getHomeTeam();
-		match.getAwayTeam();
+		LinkedList<Player> homeTeam = match.getHomeTeam();
+		LinkedList<Player> awayTeam = match.getAwayTeam();
+
+		// Test that each team has 4 players.
+		assertEquals(4, homeTeam.size());
+		assertEquals(4, awayTeam.size());
 	}
 
 
 	@Test
 	public void testFormTeamsComposition() {
-		fail("Not yet implemented");
+		match.formTeams();
+		LinkedList<Player> homeTeam = match.getHomeTeam();
+		LinkedList<Player> awayTeam = match.getAwayTeam();
+
+		// Test that each team has 4 players.
+		assertEquals(4, homeTeam.size());
+		assertEquals(4, awayTeam.size());
 	}
 
 	@Test

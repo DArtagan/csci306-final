@@ -19,6 +19,8 @@ public class CurlingMatch {
 
 	}
 
+
+	// These getters/setters are for use by unit tests only.
 	public LinkedList<Player> getHomeTeam() {
 		return homeTeam;
 	}
