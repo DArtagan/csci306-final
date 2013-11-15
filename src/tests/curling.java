@@ -105,6 +105,7 @@ public class curling {
 				default: assertTrue(false);
 			}
 		}
+
 		// Away team:
 		for (Player player : awayTeam) {
 			switch (player.getTeam()) {
