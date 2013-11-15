@@ -14,4 +14,12 @@ public class House {
 	public void calcScore() {
 
 	}
+
+	public void addStone(Stone stone) {
+
+	}
+
+	public Object getScore() {
+		return null;
+	}
 }
