@@ -5,9 +5,30 @@ import java.util.LinkedList;
 
 public class CurlingMatch {
 	private int turn;
-	private LinkedList<Player> homeTeam, awayTeam;
+	private Player currentPlayer;
+	private boolean gameOver;
 	private HashMap<Team, LinkedList<Integer>> score;
 	private House house;
+	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	private LinkedList<Player> homeTeam, awayTeam;
+	
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
 
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
@@ -19,7 +40,7 @@ public class CurlingMatch {
 		score.get(Team.AWAY).add(0);
 		house = new House();
 	}
-
+	
 	public void formTeams() {
 
 	}
@@ -42,7 +63,17 @@ public class CurlingMatch {
 		return awayTeam;
 	}
 
-	public House getHouse() {
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+	
+
+	public House getHouse(){
 		return house;
 	}
+
 }
