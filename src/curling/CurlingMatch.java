@@ -6,10 +6,12 @@ public class CurlingMatch {
 	private int turn;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private LinkedList<Integer> score;
+	private House house;
 
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
 		awayTeam = new LinkedList<Player>();
+		house = new House();
 	}
 
 	public void formTeams() {
@@ -28,5 +30,9 @@ public class CurlingMatch {
 
 	public LinkedList<Player> getAwayTeam() {
 		return awayTeam;
+	}
+
+	public House getHouse() {
+		return house;
 	}
 }

@@ -14,4 +14,9 @@ public class House {
 	public void calcScore() {
 
 	}
+
+	// These getters/setters are for use by unit tests only.
+	public HashSet<Stone> getStones() {
+		return stones;
+	}
 }
