@@ -1,14 +1,25 @@
 package curling;
 
-public class Player {
-	private int order;
+import java.util.HashSet;
 
-	public Player(int order) {
+public class Player {
+	private int order;  // What is an order?
+	private Team team;
+	private Role role;
+	HashSet<Stone> stones;
+
+	public Player(Team team, Role role) {
 		super();
-		this.order = order;
+		this.team = team;
+		this.role = role;
+
+		// All players begin with 2 stones.
+		stones = new HashSet<Stone>();
+		stones.add(new Stone(team));
+		stones.add(new Stone(team));
 	}
 
-	public void send() {
+	public void sendStone() {
 
 	}
 }

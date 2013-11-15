@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import curling.CurlingMatch;
 import curling.Stone;
+import curling.Team;
 
 public class curling {
 
@@ -60,14 +61,14 @@ public class curling {
 
 	@Test
 	public void testCompareEqual() {
-		Stone stone1 = new Stone(1, 2);
-		Stone stone2 = new Stone(1, 3);
-		Stone stone3 = new Stone(0, 3);
-		Stone stone4 = new Stone(0, 2);
-		Stone stone5 = new Stone(-1, 9);
-		Stone stone6 = new Stone(-1, 0);
-		Stone stone7 = new Stone(5, 1);
-		Stone stone8 = new Stone(5, 1);
+		Stone stone1 = new Stone(Team.OURS, 1, 2);
+		Stone stone2 = new Stone(Team.OURS, 1, 3);
+		Stone stone3 = new Stone(Team.THEIRS, 0, 3);
+		Stone stone4 = new Stone(Team.THEIRS, 0, 2);
+		Stone stone5 = new Stone(Team.OURS, -1, 9);
+		Stone stone6 = new Stone(Team.THEIRS, -1, 0);
+		Stone stone7 = new Stone(Team.OURS, 5, 1);
+		Stone stone8 = new Stone(Team.OURS, 5, 1);
 
 		assertEquals(Stone.Compare.EQUAL, stone1.compareTo(stone2));
 		assertEquals(Stone.Compare.EQUAL, stone3.compareTo(stone4));
@@ -77,14 +78,14 @@ public class curling {
 
 	@Test
 	public void testCompareFarther() {
-		Stone stone1 = new Stone(2, 2);
-		Stone stone2 = new Stone(1, 3);
-		Stone stone3 = new Stone(9, 3);
-		Stone stone4 = new Stone(0, 2);
-		Stone stone5 = new Stone(-2, 9);
-		Stone stone6 = new Stone(-1, 0);
-		Stone stone7 = new Stone(6, 1);
-		Stone stone8 = new Stone(5, 1);
+		Stone stone1 = new Stone(Team.OURS, 2, 2);
+		Stone stone2 = new Stone(Team.OURS, 1, 3);
+		Stone stone3 = new Stone(Team.THEIRS, 9, 3);
+		Stone stone4 = new Stone(Team.THEIRS, 0, 2);
+		Stone stone5 = new Stone(Team.OURS, -2, 9);
+		Stone stone6 = new Stone(Team.THEIRS, -1, 0);
+		Stone stone7 = new Stone(Team.OURS, 6, 1);
+		Stone stone8 = new Stone(Team.OURS, 5, 1);
 
 		assertEquals(Stone.Compare.FARTHER, stone1.compareTo(stone2));
 		assertEquals(Stone.Compare.FARTHER, stone3.compareTo(stone4));
@@ -94,14 +95,14 @@ public class curling {
 
 	@Test
 	public void testCompareCloser() {
-		Stone stone1 = new Stone(1, 2);
-		Stone stone2 = new Stone(2, 3);
-		Stone stone3 = new Stone(0, 3);
-		Stone stone4 = new Stone(9, 2);
-		Stone stone5 = new Stone(-1, 9);
-		Stone stone6 = new Stone(-2, 0);
-		Stone stone7 = new Stone(5, 1);
-		Stone stone8 = new Stone(6, 1);
+		Stone stone1 = new Stone(Team.OURS, 1, 2);
+		Stone stone2 = new Stone(Team.OURS, 2, 3);
+		Stone stone3 = new Stone(Team.THEIRS, 0, 3);
+		Stone stone4 = new Stone(Team.THEIRS, 9, 2);
+		Stone stone5 = new Stone(Team.OURS, -1, 9);
+		Stone stone6 = new Stone(Team.THEIRS, -2, 0);
+		Stone stone7 = new Stone(Team.OURS, 5, 1);
+		Stone stone8 = new Stone(Team.OURS, 6, 1);
 
 		assertEquals(Stone.Compare.CLOSER, stone1.compareTo(stone2));
 		assertEquals(Stone.Compare.CLOSER, stone3.compareTo(stone4));
