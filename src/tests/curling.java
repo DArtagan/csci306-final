@@ -5,11 +5,13 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+import curling.CurlingMatch;
+
 public class curling {
 
 	@Before
 	public void setUp() {
-		return;
+		CurlingMatch match = new CurlingMatch();
 	}
 
 	@Test
