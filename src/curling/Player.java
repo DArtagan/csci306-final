@@ -22,4 +22,13 @@ public class Player {
 	public void sendStone() {
 
 	}
+
+	// These getters/setters are for use by unit tests only.
+	public Role getRole() {
+		return role;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
 }

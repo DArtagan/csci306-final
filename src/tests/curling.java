@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
@@ -58,8 +59,59 @@ public class curling {
 	@Test
 	public void testFormTeamsComposition() {
 		// Test that each team has one player of each type.
+		// Home team:
+		boolean hasSkip = false;
+		boolean hasLead = false;
+		boolean hasSecond = false;
+		boolean hasThird = false;
+		for (Player player : homeTeam) {
+			switch (player.getRole()) {
+				case SKIP: hasSkip = true; return;
+				case LEAD: hasLead = true; return;
+				case SECOND: hasSecond = true; return;
+				case THIRD: hasThird = true; return;
+				default: assertTrue(false); return;
+			}
+		}
+		assertTrue(hasSkip);
+		assertTrue(hasLead);
+		assertTrue(hasSecond);
+		assertTrue(hasThird);
+
+		// Away team:
+		hasSkip = false;
+		hasLead = false;
+		hasSecond = false;
+		hasThird = false;
+		for (Player player : awayTeam) {
+			switch (player.getRole()) {
+				case SKIP: hasSkip = true; return;
+				case LEAD: hasLead = true; return;
+				case SECOND: hasSecond = true; return;
+				case THIRD: hasThird = true; return;
+				default: assertTrue(false); return;
+			}
+		}
+		assertTrue(hasSkip);
+		assertTrue(hasLead);
+		assertTrue(hasSecond);
+		assertTrue(hasThird);
 
 		// Test that each member of each team has the correct team member variable.
+		// Home team:
+		for (Player player : homeTeam) {
+			switch (player.getTeam()) {
+				case HOME: return;
+				default: assertTrue(false);
+			}
+		}
+		// Away team:
+		for (Player player : awayTeam) {
+			switch (player.getTeam()) {
+				case AWAY: return;
+				default: assertTrue(false);
+			}
+		}
 	}
 
 	@Test
