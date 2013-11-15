@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import curling.CurlingMatch;
 import curling.Player;
+import curling.Role;
 import curling.Stone;
 import curling.Team;
 
@@ -55,14 +56,6 @@ public class curling {
 	public void testAdvanceTurnNewGame() {
 		// Test that advancing the turn when no one is playing will start a new game
 		// The game turn should initialize to zero
-	}
-
-	@Test
-	public void testAdvanceTurnGameOver() {
-		// Test that advancing the turn at the last player will end the game
-		match.setTurn(4);//set the game to the final turn
-		// have the players
-		assertTrue(match.isGameOver());
 	}
 
 
@@ -138,12 +131,40 @@ public class curling {
 
 	@Test
 	public void testSendPlayerStoneCount() {
-		fail("Not yet implemented");
+		// Test that the number of stones that the player has sent has
+		// been decremented. Each player should only be able to send two
+		// stones.
+		Player player = new Player(Team.HOME, Role.SKIP);
+		player.sendStone();
+		assertEquals(1, player.getStones().size());
+		player.sendStone();
+		assertEquals(0, player.getStones().size());
+
+
+		// Test that every time any player sends a stone, the house
+		// gains one. CurlingMatch.advanceTurn() should have a single
+		// player send a single stone.
+		assertEquals(0, match.getHouse().getStones().size());
+		match.advanceTurn();
+		assertEquals(1, match.getHouse().getStones().size());
+		match.advanceTurn();
+		assertEquals(2, match.getHouse().getStones().size());
+		match.advanceTurn();
+		assertEquals(3, match.getHouse().getStones().size());
+		match.advanceTurn();
+		match.advanceTurn();
+		assertEquals(5, match.getHouse().getStones().size());
+		// ...
 	}
 
-	@Test
-	public void testSendEffect() {
-		fail("Not yet implemented");
+	@Test(expected=RuntimeException.class)
+	public void testSendPlayerOutOfStones() {
+		// Test that a runtime exception is thrown when a sendStone() is
+		// called, but a player is out of stones.
+		Player player = new Player(Team.HOME, Role.SKIP);
+		player.sendStone();
+		player.sendStone();
+		player.sendStone();
 	}
 
 	@Test
