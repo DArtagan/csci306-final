@@ -1,7 +1,6 @@
 package curling;
 
 public class Stone implements Comparable<Stone> {
-
 	private Team team;
 	private int radius, angle;
 
