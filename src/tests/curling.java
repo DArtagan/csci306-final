@@ -41,16 +41,16 @@ public class curling {
 
 	@Test
 	public void testAdvanceTurnChangeSet() {
-		// advance turn four times so the second set of players come in
+		match.advanceTurn();//starts the game so that player 1's first throw on the home team
+		// advance turn three times so it is the last throw of the first set of players
 		match.advanceTurn();
 		match.advanceTurn();
 		match.advanceTurn();
-
-		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(1));
-		match.advanceTurn();  // change to the opponents turn
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(2));
-		match.advanceTurn();  //should be home team's first player's turn
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(2));
+		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(0));
+		match.advanceTurn();  // change to the opponents turn, the second set of throwers
+		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(1));//should be home team's second player's turn
+		match.advanceTurn();
+		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(1));//should be away team's second player's turn
 	}
 
 	@Test

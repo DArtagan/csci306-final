@@ -31,7 +31,6 @@ public class House {
 				++score;
 			}
 		}
-
 		result.put(team, score);
 		return result;
 	}
