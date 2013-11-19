@@ -35,7 +35,17 @@ public class CurlingMatch {
 	}
 
 	public void formTeams() {
+		// Form home team.
+		homeTeam.add(new Player(Team.HOME, Role.LEAD));
+		homeTeam.add(new Player(Team.HOME, Role.SKIP));
+		homeTeam.add(new Player(Team.HOME, Role.SECOND));
+		homeTeam.add(new Player(Team.HOME, Role.THIRD));
 
+		// Form away team.
+		awayTeam.add(new Player(Team.AWAY, Role.LEAD));
+		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
+		awayTeam.add(new Player(Team.AWAY, Role.SECOND));
+		awayTeam.add(new Player(Team.AWAY, Role.THIRD));
 	}
 
 	public void advanceTurn() {
