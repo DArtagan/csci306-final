@@ -1,7 +1,6 @@
 package curling;
 
 public class Stone implements Comparable<Stone> {
-	public static enum Compare {CLOSER, EQUAL, FARTHER};
 
 	private Team team;
 	private int radius, angle;
