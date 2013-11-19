@@ -45,6 +45,7 @@ public class curling {
 		match.advanceTurn();
 		match.advanceTurn();
 		match.advanceTurn();
+
 		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(1));
 		match.advanceTurn();  // change to the opponents turn
 		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(2));

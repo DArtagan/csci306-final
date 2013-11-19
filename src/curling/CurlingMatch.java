@@ -37,6 +37,13 @@ public class CurlingMatch {
 	}
 
 	public void advanceTurn() {
+		if (turn % 2 == 0) {
+			currentPlayer = homeTeam.get(turn / 4);
+		} else {
+			currentPlayer = awayTeam.get(turn / 4);
+		}
+		house.addStone(currentPlayer.sendStone());
+
 		// Score the previous turn
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
@@ -48,7 +55,7 @@ public class CurlingMatch {
 		}
 
 		// Reset house
-		house.reset();
+		//house.reset();
 
 		// Advance turn
 		++turn;

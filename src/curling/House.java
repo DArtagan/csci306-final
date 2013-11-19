@@ -1,15 +1,15 @@
 package curling;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeSet;
 
 public class House {
-	private TreeSet<Stone> stones;
+	private ArrayList<Stone> stones;
 
 	public House() {
 		// The house starts with 0 stones, and stones are added as players
 		// send them in.
-		stones = new TreeSet<Stone>();
+		stones = new ArrayList<Stone>();
 	}
 
 	public void addStone(Stone stone) {
@@ -22,7 +22,7 @@ public class House {
 			result.put(null, 0);
 			return result;
 		}
-		Team team = stones.first().getTeam();
+		Team team = stones.get(0).getTeam();
 		Integer score = 0;
 		for (Stone stone : stones) {
 			if (stone.getTeam() != team) {
@@ -37,7 +37,7 @@ public class House {
 	}
 
 	// These getters/setters are for use by unit tests only.
-	public TreeSet<Stone> getStones() {
+	public ArrayList<Stone> getStones() {
 		return stones;
 	}
 
