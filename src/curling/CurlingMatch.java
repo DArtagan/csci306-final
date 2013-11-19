@@ -22,18 +22,6 @@ public class CurlingMatch {
 		house = new House();
 	}
 
-	public Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-
-	public int getTurn() {
-		return turn;
-	}
-
-	public void setTurn(int turn) {
-		this.turn = turn;
-	}
-
 	public void formTeams() {
 		// Form home team.
 		homeTeam.add(new Player(Team.HOME, Role.LEAD));
@@ -72,6 +60,18 @@ public class CurlingMatch {
 
 
 	// These getters/setters are for use by unit tests only.
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
 	public LinkedList<Player> getHomeTeam() {
 		return homeTeam;
 	}
@@ -83,5 +83,4 @@ public class CurlingMatch {
 	public House getHouse(){
 		return house;
 	}
-
 }
