@@ -39,7 +39,21 @@ public class CurlingMatch {
 	}
 
 	public void advanceTurn() {
+		// Score the previous turn
+		HashMap<Team, Integer> houseScore = house.calcScore();
+		for (Team key : score.keySet()) {
+			if (houseScore.keySet().contains(key)) {
+				score.get(key).add(house.calcScore().get(key));
+			} else {
+				score.get(key).add(0);
+			}
+		}
 
+		// Reset house
+		house.reset();
+
+		// Advance turn
+		++turn;
 	}
 
 	public HashMap<Team, LinkedList<Integer>> getScore() {

@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -215,7 +214,9 @@ public class curling {
 	@Test
 	public void testScoreHouse() {
 		House house = match.getHouse();
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(null, 0));
+		HashMap<Team, Integer> result = new HashMap<Team, Integer>();
+		result.put(null, 0);
+		assertEquals(house.calcScore(), result);
 
 		house.addStone(new Stone(Team.HOME, 1, 2));
 		house.addStone(new Stone(Team.HOME, 2, 3));
@@ -223,13 +224,20 @@ public class curling {
 		house.addStone(new Stone(Team.AWAY, 3, 0));
 		house.addStone(new Stone(Team.HOME, 5, 1));
 		house.addStone(new Stone(Team.HOME, 6, 1));
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.HOME, 2));
 
+		result.clear();
+		result.put(Team.HOME, 2);
+		assertEquals(house.calcScore(), result);
+
+		result.clear();
+		result.put(Team.HOME, 2);
 		house.addStone(new Stone(Team.AWAY, 3, 5));
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.HOME, 2));
+		assertEquals(house.calcScore(), result);
 
+		result.clear();
+		result.put(Team.AWAY, 1);
 		house.addStone(new Stone(Team.AWAY, 0, 1));
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.AWAY, 1));
+		assertEquals(house.calcScore(), result);
 	}
 
 	@Test
@@ -243,12 +251,17 @@ public class curling {
 		House house = match.getHouse();
 		house.addStone(new Stone(Team.HOME, 1, 2));
 		house.addStone(new Stone(Team.HOME, 2, 3));
-		house.addStone(new Stone(Team.AWAY, 9, 2));
-		house.addStone(new Stone(Team.AWAY, 3, 0));
 		house.addStone(new Stone(Team.HOME, 5, 1));
 		house.addStone(new Stone(Team.HOME, 6, 1));
+		house.addStone(new Stone(Team.AWAY, 9, 2));
+		house.addStone(new Stone(Team.AWAY, 3, 0));
 
+		homeScore.add(0);
+		awayScore.add(0);
+		scoreMap.put(Team.HOME, homeScore);
+		scoreMap.put(Team.AWAY, awayScore);
 		assertEquals(match.getScore(), scoreMap);
+
 		homeScore.add(2);
 		awayScore.add(0);
 		scoreMap.put(Team.HOME, homeScore);
@@ -263,10 +276,5 @@ public class curling {
 		scoreMap.put(Team.AWAY, awayScore);
 		match.advanceTurn();
 		assertEquals(match.getScore(), scoreMap);
-	}
-
-	@Test
-	public void testCalcScoreTeamScore() {
-		fail("Not yet implemented");
 	}
 }

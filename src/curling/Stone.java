@@ -1,6 +1,6 @@
 package curling;
 
-public class Stone {
+public class Stone implements Comparable<Stone> {
 	public static enum Compare {CLOSER, EQUAL, FARTHER};
 
 	private Team team;
@@ -22,7 +22,15 @@ public class Stone {
 		this.angle = angle;
 	}
 
-	public Compare compareTo(Stone other) {
-		return null;
+	public int compareTo(Stone other) {
+		return radius - other.radius;
+	}
+
+	public String toString() {
+		return "Team: " + team + " Radius: " + radius + " Angle: " + angle;
+	}
+
+	public Team getTeam() {
+		return team;
 	}
 }
