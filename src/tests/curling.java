@@ -171,10 +171,10 @@ public class curling {
 		Stone stone7 = new Stone(Team.HOME, 5, 1);
 		Stone stone8 = new Stone(Team.HOME, 5, 1);
 
-		assertEquals(Stone.Compare.EQUAL, stone1.compareTo(stone2));
-		assertEquals(Stone.Compare.EQUAL, stone3.compareTo(stone4));
-		assertEquals(Stone.Compare.EQUAL, stone5.compareTo(stone6));
-		assertEquals(Stone.Compare.EQUAL, stone7.compareTo(stone8));
+		assert(stone1.compareTo(stone2) == 0);
+		assert(stone3.compareTo(stone4) == 0);
+		assert(stone5.compareTo(stone6) == 0);
+		assert(stone7.compareTo(stone8) == 0);
 	}
 
 	@Test
@@ -188,10 +188,10 @@ public class curling {
 		Stone stone7 = new Stone(Team.HOME, 6, 1);
 		Stone stone8 = new Stone(Team.HOME, 5, 1);
 
-		assertEquals(Stone.Compare.FARTHER, stone1.compareTo(stone2));
-		assertEquals(Stone.Compare.FARTHER, stone3.compareTo(stone4));
-		assertEquals(Stone.Compare.FARTHER, stone5.compareTo(stone6));
-		assertEquals(Stone.Compare.FARTHER, stone7.compareTo(stone8));
+		assert(stone1.compareTo(stone2) < 0);
+		assert(stone3.compareTo(stone4) < 0);
+		assert(stone5.compareTo(stone6) < 0);
+		assert(stone7.compareTo(stone8) < 0);
 	}
 
 	@Test
@@ -205,10 +205,10 @@ public class curling {
 		Stone stone7 = new Stone(Team.HOME, 5, 1);
 		Stone stone8 = new Stone(Team.HOME, 6, 1);
 
-		assertEquals(Stone.Compare.CLOSER, stone1.compareTo(stone2));
-		assertEquals(Stone.Compare.CLOSER, stone3.compareTo(stone4));
-		assertEquals(Stone.Compare.CLOSER, stone5.compareTo(stone6));
-		assertEquals(Stone.Compare.CLOSER, stone7.compareTo(stone8));
+		assert(stone1.compareTo(stone2) > 0);
+		assert(stone3.compareTo(stone4) > 0);
+		assert(stone5.compareTo(stone6) > 0);
+		assert(stone7.compareTo(stone8) > 0);
 	}
 
 	@Test
