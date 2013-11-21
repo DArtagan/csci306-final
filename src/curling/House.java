@@ -23,15 +23,16 @@ public class House {
 			result.put(null, 0);
 			return result;
 		}
-		Team team = Team.HOME;
+		Team team = stones.get(0).getTeam();
 		Integer score = 0;
 		for (Stone stone : stones) {
 			if (stone.getTeam() != team) {
-				--score;
+				break;
 			} else {
 				++score;
 			}
 		}
+<<<<<<< HEAD
 		if(score >= 0){
 			result.put(Team.HOME, score);
 		} else {
@@ -58,6 +59,9 @@ public class House {
 				}
 			}
 		}
+=======
+		result.put(team, score);
+>>>>>>> parent of 2551e6a... Earlier unsynced changes
 		return result;
 	}
 
