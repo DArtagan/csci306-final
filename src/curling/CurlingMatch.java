@@ -6,19 +6,13 @@ import java.util.LinkedList;
 public class CurlingMatch {
 	private int turn;
 	private Player currentPlayer;
-	private boolean gameOver;
-	private HashMap<Team, LinkedList<Integer>> score;
+	private HashMap<Team, Integer> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
 
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
 		awayTeam = new LinkedList<Player>();
-		score = new HashMap<Team, LinkedList<Integer>>();
-		score.put(Team.HOME, new LinkedList<Integer>());
-		score.put(Team.AWAY, new LinkedList<Integer>());
-		score.get(Team.HOME).add(0);
-		score.get(Team.AWAY).add(0);
 		house = new House();
 	}
 
@@ -44,25 +38,12 @@ public class CurlingMatch {
 		}
 		house.addStone(currentPlayer.sendStone());
 
-		// Score the previous turn
-		HashMap<Team, Integer> houseScore = house.calcScore();
-		for (Team key : score.keySet()) {
-			if (houseScore.keySet().contains(key)) {
-				score.get(key).add(house.calcScore().get(key));
-			} else {
-				score.get(key).add(0);
-			}
-		}
-
-		// Reset house
-		//house.reset();
-
 		// Advance turn
 		++turn;
 	}
 
-	public HashMap<Team, LinkedList<Integer>> getScore() {
-		return score;
+	public HashMap<Team, Integer> getScore() {
+		return house.calcScore();
 	}
 
 
