@@ -22,16 +22,21 @@ public class House {
 			result.put(null, 0);
 			return result;
 		}
-		Team team = stones.get(0).getTeam();
+		Team team = Team.HOME;
 		Integer score = 0;
 		for (Stone stone : stones) {
 			if (stone.getTeam() != team) {
-				break;
+				--score;
 			} else {
 				++score;
 			}
 		}
-		result.put(team, score);
+		if(score >= 0){
+			result.put(Team.HOME, score);
+		} else {
+			score = score * -1;
+			result.put(Team.AWAY, score);
+		}
 		return result;
 	}
 
