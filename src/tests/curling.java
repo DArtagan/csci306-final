@@ -216,7 +216,8 @@ public class curling {
 	public void testScoreHouse() {
 		House house = match.getHouse();
 		HashMap<Team, Integer> result = new HashMap<Team, Integer>();
-		result.put(null, 0);
+		result.put(Team.AWAY, 0);
+		result.put(Team.HOME, 0);
 		assertEquals(house.calcScore(), result);
 
 		house.addStone(new Stone(Team.HOME, 1, 2));
@@ -228,14 +229,15 @@ public class curling {
 
 		result.clear();
 		result.put(Team.HOME, 2);
-		assertEquals(house.calcScore(), result);
+		result.put(Team.AWAY, 0);
+		assertEquals(result, house.calcScore());
 
-		result.clear();
 		result.put(Team.HOME, 2);
+		result.put(Team.AWAY, 0);
 		house.addStone(new Stone(Team.AWAY, 3, 5));
 		assertEquals(house.calcScore(), result);
 
-		result.clear();
+		result.put(Team.HOME, 0);
 		result.put(Team.AWAY, 1);
 		house.addStone(new Stone(Team.AWAY, 0, 1));
 		assertEquals(house.calcScore(), result);
@@ -243,11 +245,11 @@ public class curling {
 
 	@Test
 	public void testScoreMatch() {
-		HashMap<Team, LinkedList<Integer>> scoreMap = new HashMap<Team, LinkedList<Integer>>();
-		LinkedList<Integer> homeScore = new LinkedList<Integer>();
-		LinkedList<Integer> awayScore = new LinkedList<Integer>();
-		scoreMap.put(Team.HOME, homeScore);
-		scoreMap.put(Team.AWAY, awayScore);
+		HashMap<Team, Integer> scoreMap = new HashMap<Team, Integer>();
+
+		scoreMap.put(Team.HOME, 0);
+		scoreMap.put(Team.AWAY, 0);
+		assertEquals(scoreMap, match.getScore());
 
 		House house = match.getHouse();
 		house.addStone(new Stone(Team.HOME, 1, 2));
@@ -257,25 +259,13 @@ public class curling {
 		house.addStone(new Stone(Team.AWAY, 9, 2));
 		house.addStone(new Stone(Team.AWAY, 3, 0));
 
-		homeScore.add(0);
-		awayScore.add(0);
-		scoreMap.put(Team.HOME, homeScore);
-		scoreMap.put(Team.AWAY, awayScore);
-		assertEquals(match.getScore(), scoreMap);
-
-		homeScore.add(2);
-		awayScore.add(0);
-		scoreMap.put(Team.HOME, homeScore);
-		scoreMap.put(Team.AWAY, awayScore);
-		match.advanceTurn();
-		assertEquals(match.getScore(), scoreMap);
+		scoreMap.put(Team.HOME, 2);
+		scoreMap.put(Team.AWAY, 0);
+		assertEquals(scoreMap, match.getScore());
 
 		house.addStone(new Stone(Team.AWAY, 0, 1));
-		homeScore.add(0);
-		awayScore.add(1);
-		scoreMap.put(Team.HOME, homeScore);
-		scoreMap.put(Team.AWAY, awayScore);
-		match.advanceTurn();
-		assertEquals(match.getScore(), scoreMap);
+		scoreMap.put(Team.HOME, 0);
+		scoreMap.put(Team.AWAY, 1);
+		assertEquals(scoreMap, match.getScore());
 	}
 }

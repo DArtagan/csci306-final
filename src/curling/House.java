@@ -1,6 +1,7 @@
 package curling;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class House {
@@ -36,6 +37,26 @@ public class House {
 		} else {
 			score = score * -1;
 			result.put(Team.AWAY, score);
+		}
+		result.put(Team.HOME, 0);
+		result.put(Team.AWAY, 0);
+
+		if (stones.size() > 0) {
+			Collections.sort(stones);
+			Stone baseStone = stones.get(0);
+
+			Team currentTeam = null;
+			for (Stone stone : stones) {
+				currentTeam = stone.getTeam();
+				if (baseStone.compareTo(stone) == 0 && baseStone.getTeam() != currentTeam) {
+					result.put(baseStone.getTeam(), 0);
+					break;
+				} else if (currentTeam != baseStone.getTeam()) {
+					break;
+				} else {
+					result.put(currentTeam, result.get(currentTeam) + 1);
+				}
+			}
 		}
 		return result;
 	}
