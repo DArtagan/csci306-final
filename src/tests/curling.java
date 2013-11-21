@@ -231,7 +231,7 @@ public class curling {
 		assertEquals(house.calcScore(), result);
 
 		result.clear();
-		result.put(Team.HOME, 2);
+		result.put(Team.HOME, 1);
 		house.addStone(new Stone(Team.AWAY, 3, 5));
 		assertEquals(house.calcScore(), result);
 
@@ -263,7 +263,7 @@ public class curling {
 		scoreMap.put(Team.AWAY, awayScore);
 		assertEquals(match.getScore(), scoreMap);
 
-		homeScore.add(2);
+		homeScore.add(3);
 		awayScore.add(0);
 		scoreMap.put(Team.HOME, homeScore);
 		scoreMap.put(Team.AWAY, awayScore);
@@ -271,8 +271,8 @@ public class curling {
 		assertEquals(match.getScore(), scoreMap);
 
 		house.addStone(new Stone(Team.AWAY, 0, 1));
-		homeScore.add(0);
-		awayScore.add(1);
+		homeScore.add(1);
+		awayScore.add(0);
 		scoreMap.put(Team.HOME, homeScore);
 		scoreMap.put(Team.AWAY, awayScore);
 		match.advanceTurn();

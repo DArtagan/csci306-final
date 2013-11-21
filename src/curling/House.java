@@ -1,6 +1,7 @@
 package curling;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class House {
@@ -22,11 +23,12 @@ public class House {
 			result.put(null, 0);
 			return result;
 		}
-		Team team = Team.HOME;
+		Collections.sort(stones);
+		Team team = stones.get(0).getTeam();
 		Integer score = 0;
 		for (Stone stone : stones) {
 			if (stone.getTeam() != team) {
-				--score;
+				break;
 			} else {
 				++score;
 			}
