@@ -224,7 +224,7 @@ public class curling {
 		house.addStone(new Stone(Team.AWAY, 9, 2));
 		house.addStone(new Stone(Team.AWAY, 3, 0));
 		house.addStone(new Stone(Team.HOME, 5, 1));
-		house.addStone(new Stone(Team.HOME, 6, 1));
+		house.addStone(new Stone(Team.HOME, 6, 1));//home team now has 4 stones, away has 2
 
 		result.clear();
 		result.put(Team.HOME, 2);
@@ -233,12 +233,13 @@ public class curling {
 		result.clear();
 		result.put(Team.HOME, 1);
 		house.addStone(new Stone(Team.AWAY, 3, 5));
-		assertEquals(house.calcScore(), result);
+		assertEquals(house.calcScore(), result);//home team now has 4 stones, away has 3
 
 		result.clear();
 		result.put(Team.AWAY, 1);
 		house.addStone(new Stone(Team.AWAY, 0, 1));
-		assertEquals(house.calcScore(), result);
+		house.addStone(new Stone(Team.AWAY, 1, 2));
+		assertEquals(house.calcScore(), result);//home team now has 4 stones, away has 5
 	}
 
 	@Test

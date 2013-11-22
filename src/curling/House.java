@@ -24,13 +24,13 @@ public class House {
 			return result;
 		}
 		Collections.sort(stones);
-		Team team = stones.get(0).getTeam();
+		Team team = Team.HOME;
 		Integer score = 0;
 		for (Stone stone : stones) {
-			if (stone.getTeam() != team) {
-				break;
-			} else {
+			if (stone.getTeam() == team) {
 				++score;
+			} else {
+				--score;
 			}
 		}
 		if(score >= 0){
