@@ -1,31 +1,61 @@
 package curling;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class House {
-	private HashSet<Stone> stones;
+	private ArrayList<Stone> stones;
 
 	public House() {
 		// The house starts with 0 stones, and stones are added as players
 		// send them in.
-		stones = new HashSet<Stone>();
-	}
-
-	public HashMap<Team, Integer> calcScore() {
-		return null;
+		stones = new ArrayList<Stone>();
 	}
 
 	public void addStone(Stone stone) {
-
+		stones.add(stone);
 	}
 
-	public Object getScore() {
-		return null;
+	public HashMap<Team, Integer> calcScore() {
+		HashMap<Team, Integer> result = new HashMap<Team, Integer>();
+		if (stones.size() == 0) {
+			result.put(null, 0);
+			return result;
+		}
+		Collections.sort(stones);
+		Team team = Team.HOME;
+		Integer score = 0;
+		for (Stone stone : stones) {
+			if (stone.getTeam() == team) {
+				++score;
+			} else {
+				--score;
+			}
+		}
+		if(score >= 0){
+			result.put(Team.HOME, score);
+		} else {
+			score = score * -1;
+			result.put(Team.AWAY, score);
+		}
+		return result;
 	}
 
 	// These getters/setters are for use by unit tests only.
-	public HashSet<Stone> getStones() {
+	public ArrayList<Stone> getStones() {
 		return stones;
+	}
+
+	public String toString() {
+		String output = "";
+		for (Stone stone : stones) {
+			output += stone + ", ";
+		}
+		return output;
+	}
+
+	public void reset() {
+		stones.clear();
 	}
 }

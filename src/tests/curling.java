@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -42,15 +41,16 @@ public class curling {
 
 	@Test
 	public void testAdvanceTurnChangeSet() {
-		// advance turn four times so the second set of players come in
+		match.advanceTurn();//starts the game so that player 1's first throw on the home team
+		// advance turn three times so it is the last throw of the first set of players
 		match.advanceTurn();
 		match.advanceTurn();
 		match.advanceTurn();
-		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(1));
-		match.advanceTurn();  // change to the opponents turn
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(2));
-		match.advanceTurn();  //should be home team's first player's turn
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(2));
+		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(0));
+		match.advanceTurn();  // change to the opponents turn, the second set of throwers
+		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(1));//should be home team's second player's turn
+		match.advanceTurn();
+		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(1));//should be away team's second player's turn
 	}
 
 	@Test
@@ -172,10 +172,10 @@ public class curling {
 		Stone stone7 = new Stone(Team.HOME, 5, 1);
 		Stone stone8 = new Stone(Team.HOME, 5, 1);
 
-		assertEquals(Stone.Compare.EQUAL, stone1.compareTo(stone2));
-		assertEquals(Stone.Compare.EQUAL, stone3.compareTo(stone4));
-		assertEquals(Stone.Compare.EQUAL, stone5.compareTo(stone6));
-		assertEquals(Stone.Compare.EQUAL, stone7.compareTo(stone8));
+		assert(stone1.compareTo(stone2) == 0);
+		assert(stone3.compareTo(stone4) == 0);
+		assert(stone5.compareTo(stone6) == 0);
+		assert(stone7.compareTo(stone8) == 0);
 	}
 
 	@Test
@@ -189,10 +189,10 @@ public class curling {
 		Stone stone7 = new Stone(Team.HOME, 6, 1);
 		Stone stone8 = new Stone(Team.HOME, 5, 1);
 
-		assertEquals(Stone.Compare.FARTHER, stone1.compareTo(stone2));
-		assertEquals(Stone.Compare.FARTHER, stone3.compareTo(stone4));
-		assertEquals(Stone.Compare.FARTHER, stone5.compareTo(stone6));
-		assertEquals(Stone.Compare.FARTHER, stone7.compareTo(stone8));
+		assert(stone1.compareTo(stone2) < 0);
+		assert(stone3.compareTo(stone4) < 0);
+		assert(stone5.compareTo(stone6) < 0);
+		assert(stone7.compareTo(stone8) < 0);
 	}
 
 	@Test
@@ -206,30 +206,40 @@ public class curling {
 		Stone stone7 = new Stone(Team.HOME, 5, 1);
 		Stone stone8 = new Stone(Team.HOME, 6, 1);
 
-		assertEquals(Stone.Compare.CLOSER, stone1.compareTo(stone2));
-		assertEquals(Stone.Compare.CLOSER, stone3.compareTo(stone4));
-		assertEquals(Stone.Compare.CLOSER, stone5.compareTo(stone6));
-		assertEquals(Stone.Compare.CLOSER, stone7.compareTo(stone8));
+		assert(stone1.compareTo(stone2) > 0);
+		assert(stone3.compareTo(stone4) > 0);
+		assert(stone5.compareTo(stone6) > 0);
+		assert(stone7.compareTo(stone8) > 0);
 	}
 
 	@Test
 	public void testScoreHouse() {
 		House house = match.getHouse();
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(null, 0));
+		HashMap<Team, Integer> result = new HashMap<Team, Integer>();
+		result.put(null, 0);
+		assertEquals(house.calcScore(), result);
 
 		house.addStone(new Stone(Team.HOME, 1, 2));
 		house.addStone(new Stone(Team.HOME, 2, 3));
 		house.addStone(new Stone(Team.AWAY, 9, 2));
 		house.addStone(new Stone(Team.AWAY, 3, 0));
 		house.addStone(new Stone(Team.HOME, 5, 1));
-		house.addStone(new Stone(Team.HOME, 6, 1));
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.HOME, 2));
+		house.addStone(new Stone(Team.HOME, 6, 1));//home team now has 4 stones, away has 2
 
+		result.clear();
+		result.put(Team.HOME, 2);
+		assertEquals(house.calcScore(), result);
+
+		result.clear();
+		result.put(Team.HOME, 1);
 		house.addStone(new Stone(Team.AWAY, 3, 5));
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.HOME, 2));
+		assertEquals(house.calcScore(), result);//home team now has 4 stones, away has 3
 
+		result.clear();
+		result.put(Team.AWAY, 1);
 		house.addStone(new Stone(Team.AWAY, 0, 1));
-		assertEquals(house.calcScore(), new HashMap<Team, Integer>().put(Team.AWAY, 1));
+		house.addStone(new Stone(Team.AWAY, 1, 2));
+		assertEquals(house.calcScore(), result);//home team now has 4 stones, away has 5
 	}
 
 	@Test
@@ -243,13 +253,18 @@ public class curling {
 		House house = match.getHouse();
 		house.addStone(new Stone(Team.HOME, 1, 2));
 		house.addStone(new Stone(Team.HOME, 2, 3));
-		house.addStone(new Stone(Team.AWAY, 9, 2));
-		house.addStone(new Stone(Team.AWAY, 3, 0));
 		house.addStone(new Stone(Team.HOME, 5, 1));
 		house.addStone(new Stone(Team.HOME, 6, 1));
+		house.addStone(new Stone(Team.AWAY, 9, 2));
+		house.addStone(new Stone(Team.AWAY, 3, 0));
 
+		homeScore.add(0);
+		awayScore.add(0);
+		scoreMap.put(Team.HOME, homeScore);
+		scoreMap.put(Team.AWAY, awayScore);
 		assertEquals(match.getScore(), scoreMap);
-		homeScore.add(2);
+
+		homeScore.add(3);
 		awayScore.add(0);
 		scoreMap.put(Team.HOME, homeScore);
 		scoreMap.put(Team.AWAY, awayScore);
@@ -257,16 +272,11 @@ public class curling {
 		assertEquals(match.getScore(), scoreMap);
 
 		house.addStone(new Stone(Team.AWAY, 0, 1));
-		homeScore.add(0);
-		awayScore.add(1);
+		homeScore.add(1);
+		awayScore.add(0);
 		scoreMap.put(Team.HOME, homeScore);
 		scoreMap.put(Team.AWAY, awayScore);
 		match.advanceTurn();
 		assertEquals(match.getScore(), scoreMap);
-	}
-
-	@Test
-	public void testCalcScoreTeamScore() {
-		fail("Not yet implemented");
 	}
 }
