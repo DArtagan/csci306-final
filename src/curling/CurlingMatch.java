@@ -1,11 +1,16 @@
 package curling;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 
 public class CurlingMatch extends JFrame{
@@ -39,6 +44,27 @@ public class CurlingMatch extends JFrame{
 		lowerPanel.add(awayPanel);
 		
 		add(lowerPanel);
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(createFileMenu());
+	}
+	private JMenu createFileMenu(){
+		JMenu menu = new JMenu("File");
+		menu.add(createFileExitItem());
+		
+		return menu;
+	}
+	
+	private JMenuItem createFileExitItem(){
+		JMenuItem item = new JMenuItem("Exit");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent e)
+			{
+				System.exit(0);
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
 	}
 
 	public void formTeams() {
