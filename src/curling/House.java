@@ -62,7 +62,7 @@ public class House extends JPanel{
 	public void reset() {
 		stones.clear();
 	}
-	
+
 	public void paintComponent(Graphics g){
 		HouseLayout layout = new HouseLayout();
 		layout.draw(g);
