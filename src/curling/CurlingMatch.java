@@ -38,8 +38,8 @@ public class CurlingMatch extends JFrame{
 		setLayout(new GridLayout(2, 0));
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new GridLayout(0, 2));
-		teamPanel homePanel = new teamPanel("Home");
-		teamPanel awayPanel = new teamPanel("Away");
+		TeamPanel homePanel = new TeamPanel("Home");
+		TeamPanel awayPanel = new TeamPanel("Away");
 		lowerPanel.add(homePanel);
 		lowerPanel.add(awayPanel);
 		

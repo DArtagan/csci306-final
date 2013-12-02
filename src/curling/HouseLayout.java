@@ -22,19 +22,19 @@ public class HouseLayout{//All parameters are in 1/20 feet, sorry if that's conf
 		g.fillRect(0, 0, rinkLength, rinkWidth);//draw the ice
 		
 		g.setColor(java.awt.Color.BLUE);
-		g.fillOval(circleCenterX, halfRinkWidth, blueRadius, blueRadius);
+		g.fillOval(circleCenterX-blueRadius/2, halfRinkWidth-blueRadius/2, blueRadius, blueRadius);
 		
 		g.setColor(java.awt.Color.WHITE);
-		g.fillOval(circleCenterX, halfRinkWidth, whiteRadius, whiteRadius);
+		g.fillOval(circleCenterX-whiteRadius/2, halfRinkWidth-whiteRadius/2, whiteRadius, whiteRadius);
 		
 		g.setColor(java.awt.Color.RED);
-		g.fillOval(circleCenterX, halfRinkWidth, redRadius, redRadius);
+		g.fillOval(circleCenterX-redRadius/2, halfRinkWidth-redRadius/2, redRadius, redRadius);
 		
 		g.setColor(java.awt.Color.BLACK);
 		g.drawLine(0, halfRinkWidth, rinkLength, halfRinkWidth);
 		g.drawLine(circleCenterX, 0, circleCenterX, rinkWidth);
 		
 		g.setColor(java.awt.Color.WHITE);
-		g.fillOval(circleCenterX, halfRinkWidth, insideRadius, insideRadius);
+		g.fillOval(circleCenterX-insideRadius/2, halfRinkWidth-insideRadius/2, insideRadius, insideRadius);
 	}
 }

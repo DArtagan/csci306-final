@@ -9,12 +9,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class teamPanel extends JPanel{
+public class TeamPanel extends JPanel{
 	private String team;
 	private JTextField score;
 	private JLabel teamLabel;
 	
-	public teamPanel(String Team){
+	public TeamPanel(String Team){
 		this.team = Team;
 		setSize(400, 200);
 		setBorder(new TitledBorder (new EtchedBorder(), team));
@@ -29,7 +29,7 @@ public class teamPanel extends JPanel{
 		buttonPanel.setBorder(new TitledBorder (new EtchedBorder(), team + " Actions"));
 		JButton drawButton = new JButton("Draw");
 		JButton takeButton = new JButton("Take");
-		JButton gaurdButton = new JButton("Gaurd");
+		JButton gaurdButton = new JButton("Guard");
 		buttonPanel.add(drawButton);
 		buttonPanel.add(takeButton);
 		buttonPanel.add(gaurdButton);
