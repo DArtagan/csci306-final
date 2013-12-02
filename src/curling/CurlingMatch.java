@@ -1,9 +1,14 @@
 package curling;
 
+import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class CurlingMatch {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class CurlingMatch extends JFrame{
 	private int turn;
 	private Player currentPlayer;
 	private boolean gameOver;
@@ -20,6 +25,20 @@ public class CurlingMatch {
 		score.get(Team.HOME).add(0);
 		score.get(Team.AWAY).add(0);
 		house = new House();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void GUISetup(){
+		setSize(600, 400);
+		setLayout(new GridLayout(2, 0));
+		JPanel lowerPanel = new JPanel();
+		lowerPanel.setLayout(new GridLayout(0, 2));
+		teamPanel homePanel = new teamPanel("Home");
+		teamPanel awayPanel = new teamPanel("Away");
+		lowerPanel.add(homePanel);
+		lowerPanel.add(awayPanel);
+		
+		add(lowerPanel);
 	}
 
 	public void formTeams() {
@@ -89,5 +108,11 @@ public class CurlingMatch {
 
 	public House getHouse(){
 		return house;
+	}
+	
+	public static void main(String[] args) {
+		CurlingMatch game = new CurlingMatch();
+		game.GUISetup();
+		game.setVisible(true);
 	}
 }
