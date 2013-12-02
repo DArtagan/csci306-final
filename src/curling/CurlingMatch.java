@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 
-public class CurlingMatch extends JFrame{
+public class CurlingMatch extends JFrame {
 	private int turn;
 	private Player currentPlayer;
 	private boolean gameOver;
@@ -32,7 +32,7 @@ public class CurlingMatch extends JFrame{
 		house = new House();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	public void GUISetup(){
 		setSize(660, 600);
 		setLayout(new GridLayout(2, 0));
@@ -42,7 +42,7 @@ public class CurlingMatch extends JFrame{
 		TeamPanel awayPanel = new TeamPanel("Away");
 		lowerPanel.add(homePanel);
 		lowerPanel.add(awayPanel);
-		
+
 		add(house);
 		add(lowerPanel);
 		JMenuBar menuBar = new JMenuBar();
@@ -53,10 +53,10 @@ public class CurlingMatch extends JFrame{
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
 		menu.add(createFileExitItem());
-		
+
 		return menu;
 	}
-	
+
 	private JMenuItem createFileExitItem(){
 		JMenuItem item = new JMenuItem("Exit");
 		class MenuItemListener implements ActionListener {
@@ -137,7 +137,7 @@ public class CurlingMatch extends JFrame{
 	public House getHouse(){
 		return house;
 	}
-	
+
 	public static void main(String[] args) {
 		CurlingMatch game = new CurlingMatch();
 		game.GUISetup();

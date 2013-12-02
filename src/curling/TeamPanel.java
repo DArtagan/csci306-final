@@ -17,6 +17,7 @@ public class TeamPanel extends JPanel{
 	private JTextField score;
 	private JLabel teamLabel;
 	private JButton drawButton, takeButton, guardButton;
+	private Purpose intention;
 
 	public TeamPanel(String Team){
 		this.team = Team;
@@ -55,8 +56,22 @@ public class TeamPanel extends JPanel{
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == drawButton) {
-
+				intention = Purpose.DRAW;
+			}
+			if(e.getSource() == drawButton) {
+				intention = Purpose.TAKEOUT;
+			}
+			if(e.getSource() == drawButton) {
+				intention = Purpose.GUARD;
 			}
 		}
+	}
+
+	public Purpose getIntention() {
+		return intention;
+	}
+
+	public void setIntention(Purpose purpose) {
+		intention = purpose;
 	}
 }
