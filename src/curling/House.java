@@ -1,11 +1,15 @@
 package curling;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class House {
+import javax.swing.JPanel;
+
+public class House extends JPanel{
 	private ArrayList<Stone> stones;
+	private HouseLayout layout;
 
 	public House() {
 		// The house starts with 0 stones, and stones are added as players
@@ -57,5 +61,10 @@ public class House {
 
 	public void reset() {
 		stones.clear();
+	}
+	
+	public void paintComponent(Graphics g){
+		HouseLayout layout = new HouseLayout();
+		layout.draw(g);
 	}
 }

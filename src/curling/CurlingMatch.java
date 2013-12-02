@@ -34,7 +34,7 @@ public class CurlingMatch extends JFrame{
 	}
 	
 	public void GUISetup(){
-		setSize(600, 400);
+		setSize(660, 600);
 		setLayout(new GridLayout(2, 0));
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new GridLayout(0, 2));
@@ -43,10 +43,12 @@ public class CurlingMatch extends JFrame{
 		lowerPanel.add(homePanel);
 		lowerPanel.add(awayPanel);
 		
+		add(house);
 		add(lowerPanel);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
+		setVisible(true);
 	}
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
@@ -139,6 +141,5 @@ public class CurlingMatch extends JFrame{
 	public static void main(String[] args) {
 		CurlingMatch game = new CurlingMatch();
 		game.GUISetup();
-		game.setVisible(true);
 	}
 }
