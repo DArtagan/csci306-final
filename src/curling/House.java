@@ -66,5 +66,8 @@ public class House extends JPanel{
 	public void paintComponent(Graphics g){
 		HouseLayout layout = new HouseLayout();
 		layout.draw(g);
+		for (Stone stone : stones) {
+			stone.draw(g);
+		}
 	}
 }

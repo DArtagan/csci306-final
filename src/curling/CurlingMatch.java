@@ -141,5 +141,6 @@ public class CurlingMatch extends JFrame {
 	public static void main(String[] args) {
 		CurlingMatch game = new CurlingMatch();
 		game.GUISetup();
+		game.formTeams();
 	}
 }
