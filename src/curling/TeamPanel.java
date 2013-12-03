@@ -82,4 +82,8 @@ public class TeamPanel extends JPanel {
 	public void setIntention(Purpose purpose) {
 		intention = purpose;
 	}
+
+	public void setScore(Integer points) {
+		score.setText(points.toString());
+	}
 }

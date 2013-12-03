@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class CurlingMatch extends JFrame {
 	private int turn;
 	public static Player currentPlayer;
-	private HashMap<Team, LinkedList<Integer>> score;
+	private HashMap<Team, Integer> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
 	public static Purpose intention;
@@ -29,11 +29,11 @@ public class CurlingMatch extends JFrame {
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
 		awayTeam = new LinkedList<Player>();
-		score = new HashMap<Team, LinkedList<Integer>>();
-		score.put(Team.HOME, new LinkedList<Integer>());
-		score.put(Team.AWAY, new LinkedList<Integer>());
-		score.get(Team.HOME).add(0);
-		score.get(Team.AWAY).add(0);
+		score = new HashMap<Team, Integer>();
+		score.put(Team.HOME, null);
+		score.put(Team.AWAY, null);
+		score.put(Team.HOME, 0);
+		score.put(Team.AWAY, 0);
 		house = new House();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -140,19 +140,21 @@ public class CurlingMatch extends JFrame {
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
 			if (houseScore.keySet().contains(key)) {
-				score.get(key).add(house.calcScore().get(key));
+				score.put(key, house.calcScore().get(key));
 			} else {
-				score.get(key).add(0);
+				score.put(key, 0);
 			}
 		}
 
 		// Advance turn
 		++turn;
+		homePanel.setScore(score.get(Team.HOME));
+		awayPanel.setScore(score.get(Team.AWAY));
 		status.team.setText(currentPlayer.getTeam().toString());
 		status.player.setText(currentPlayer.getRole().toString());
 	}
 
-	public HashMap<Team, LinkedList<Integer>> getScore() {
+	public HashMap<Team, Integer> getScore() {
 		return score;
 	}
 
