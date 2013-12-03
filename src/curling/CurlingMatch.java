@@ -39,7 +39,7 @@ public class CurlingMatch extends JFrame {
 	}
 
 	public void GUISetup(){
-		setSize(725, 700);
+		setSize(725, 650);
 		setLayout(new GridLayout(2, 0));
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new GridLayout(0, 3));
