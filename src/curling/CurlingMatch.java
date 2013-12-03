@@ -18,11 +18,11 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class CurlingMatch extends JFrame {
 	private int turn;
-	public static Player currentPlayer;
+	protected static Player currentPlayer;
 	private HashMap<Team, Integer> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
-	public static Purpose intention;
+	protected static Purpose intention;
 	TeamPanel homePanel, awayPanel;
 	StatusPanel status;
 
@@ -126,6 +126,10 @@ public class CurlingMatch extends JFrame {
 	}
 
 	public void advanceTurn() {
+		if (turn % 16 == 0) {
+			house.reset();
+		}
+
 		if (turn % 2 == 0) {
 			currentPlayer = homeTeam.get((turn % 16) / 4);
 		} else {
@@ -133,9 +137,7 @@ public class CurlingMatch extends JFrame {
 		}
 
 		// Score the previous turn
-		if (turn % 16 == 0) {
-			house.reset();
-		}
+		System.out.println(house.calcScore());
 
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
