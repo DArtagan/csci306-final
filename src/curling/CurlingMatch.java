@@ -51,6 +51,7 @@ public class CurlingMatch extends JFrame {
 		lowerPanel.add(homePanel);
 		lowerPanel.add(status);
 		lowerPanel.add(awayPanel);
+		status.undoButton.addActionListener(new UndoButtonListener());
 
 		house.addPropertyChangeListener(new StonePlacedListener());
 		add(house);
@@ -59,6 +60,12 @@ public class CurlingMatch extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		setVisible(true);
+	}
+	
+	class UndoButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Add Undo Button Listener Stuff");
+		}
 	}
 
 	private JMenu createFileMenu(){
