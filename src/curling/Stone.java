@@ -1,15 +1,5 @@
 package curling;
 
-<<<<<<< HEAD
-import java.awt.Graphics;
-
-public class Stone implements Comparable<Stone> {
-	private Team team;
-	private int radius, angle;
-	private final static int stoneSizeRadius = 5;
-	private final static int circleCenterX = HouseLayout.circleCenterX;
-	private final static int halfRinkWidth = HouseLayout.halfRinkWidth;
-=======
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -20,7 +10,6 @@ public class Stone implements Comparable<Stone> {
 	private Purpose purpose;
 	private int radius;
 	private double angle;
->>>>>>> 6e52185f843f3de9bc219b4bb6374f3f4679eeb8
 
 	public Stone(Team team) {
 		// FIXME: Set default starting positions for stones.
@@ -58,18 +47,6 @@ public class Stone implements Comparable<Stone> {
 	public Team getTeam() {
 		return team;
 	}
-<<<<<<< HEAD
-	
-	public void draw(Graphics g){
-		int x = (circleCenterX-stoneSizeRadius/2) + (int) (radius * Math.cos(Math.toRadians(angle)));
-		int y = (halfRinkWidth-stoneSizeRadius/2) + (int) (radius * Math.sin(Math.toRadians(angle)));
-		if(team.equals("Home")){
-			g.setColor(java.awt.Color.ORANGE);
-			g.fillOval(x, y, stoneSizeRadius, stoneSizeRadius);
-		} else {
-			g.setColor(java.awt.Color.GREEN);
-			g.fillOval(x, y, stoneSizeRadius, stoneSizeRadius);
-=======
 
 	public void setPurpose(Purpose purpose) {
 		this.purpose = purpose;
@@ -148,7 +125,6 @@ public class Stone implements Comparable<Stone> {
 		} else {
 			// for debug purposes only!
 			g.drawString("You didn't set my purpose!", x, y);
->>>>>>> 6e52185f843f3de9bc219b4bb6374f3f4679eeb8
 		}
 	}
 }
