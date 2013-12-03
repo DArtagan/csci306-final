@@ -3,7 +3,6 @@ package curling;
 import java.util.ArrayList;
 
 public class Player {
-	private int order;  // What is an order?
 	private Team team;
 	private Role role;
 	ArrayList<Stone> stones;

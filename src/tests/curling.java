@@ -30,30 +30,6 @@ public class curling {
 	}
 
 	@Test
-	public void testAdvanceTurnChangePlayer() {
-		match.advanceTurn();  //should be the first players turn
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().getFirst());  // Home team lead player starts
-		match.advanceTurn();  // change to the opponents turn
-		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().getFirst());  // Away team lead player's first throw
-		match.advanceTurn();  //should be home team's first player's turn
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().getFirst());  // Home team lead player's second throw
-	}
-
-	@Test
-	public void testAdvanceTurnChangeSet() {
-		match.advanceTurn();//starts the game so that player 1's first throw on the home team
-		// advance turn three times so it is the last throw of the first set of players
-		match.advanceTurn();
-		match.advanceTurn();
-		match.advanceTurn();
-		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(0));
-		match.advanceTurn();  // change to the opponents turn, the second set of throwers
-		assertEquals(match.getCurrentPlayer(), match.getHomeTeam().get(1));//should be home team's second player's turn
-		match.advanceTurn();
-		assertEquals(match.getCurrentPlayer(), match.getAwayTeam().get(1));//should be away team's second player's turn
-	}
-
-	@Test
 	public void testFormTeamsNumber() {
 		// Test that each team has 4 players.
 		assertEquals(4, homeTeam.size());
@@ -123,33 +99,6 @@ public class curling {
 		}
 	}
 
-	@Test
-	public void testSendPlayerStoneCount() {
-		// Test that the number of stones that the player has sent has
-		// been decremented. Each player should only be able to send two
-		// stones.
-		Player player = new Player(Team.HOME, Role.SKIP);
-		player.sendStone();
-		assertEquals(1, player.getStones().size());
-		player.sendStone();
-		assertEquals(0, player.getStones().size());
-
-
-		// Test that every time any player sends a stone, the house
-		// gains one. CurlingMatch.advanceTurn() should have a single
-		// player send a single stone.
-		assertEquals(0, match.getHouse().getStones().size());
-		match.advanceTurn();
-		assertEquals(1, match.getHouse().getStones().size());
-		match.advanceTurn();
-		assertEquals(2, match.getHouse().getStones().size());
-		match.advanceTurn();
-		assertEquals(3, match.getHouse().getStones().size());
-		match.advanceTurn();
-		match.advanceTurn();
-		assertEquals(5, match.getHouse().getStones().size());
-		// ...
-	}
 
 	@Test(expected=RuntimeException.class)
 	public void testSendPlayerOutOfStones() {
@@ -243,29 +192,4 @@ public class curling {
 		assertEquals(house.calcScore(), result);
 	}
 
-	@Test
-	public void testScoreMatch() {
-		HashMap<Team, Integer> scoreMap = new HashMap<Team, Integer>();
-
-		scoreMap.put(Team.HOME, 0);
-		scoreMap.put(Team.AWAY, 0);
-		assertEquals(scoreMap, match.getScore());
-
-		House house = match.getHouse();
-		house.addStone(new Stone(Team.HOME, 1, 2));
-		house.addStone(new Stone(Team.HOME, 2, 3));
-		house.addStone(new Stone(Team.HOME, 5, 1));
-		house.addStone(new Stone(Team.HOME, 6, 1));
-		house.addStone(new Stone(Team.AWAY, 9, 2));
-		house.addStone(new Stone(Team.AWAY, 3, 0));
-
-		scoreMap.put(Team.HOME, 2);
-		scoreMap.put(Team.AWAY, 0);
-		assertEquals(scoreMap, match.getScore());
-
-		house.addStone(new Stone(Team.AWAY, 0, 1));
-		scoreMap.put(Team.HOME, 0);
-		scoreMap.put(Team.AWAY, 1);
-		assertEquals(scoreMap, match.getScore());
-	}
 }

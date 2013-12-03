@@ -138,7 +138,6 @@ public class CurlingMatch extends JFrame {
 
 	public class StoneIntentionListener implements PropertyChangeListener {
 		private Team team;
-
 		public StoneIntentionListener(Team team) {
 			this.team = team;
 		}

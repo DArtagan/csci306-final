@@ -10,9 +10,6 @@ public class Stone implements Comparable<Stone> {
 	private int radius;
 	private Purpose purpose;
 	private double angle;
-	private final static int stoneSizeRadius = 5;
-	private final static int circleCenterX = HouseLayout.circleCenterX;
-	private final static int halfRinkWidth = HouseLayout.halfRinkWidth;
 
 	public Stone(Team team) {
 		// FIXME: Set default starting positions for stones.
@@ -22,15 +19,6 @@ public class Stone implements Comparable<Stone> {
 		radius = 0;
 		angle = 0;
 	}
-
-	/* Unsure if we need this... how are we putting stones on the rink?
-	public Stone(Team team, Purpose purpose, int x, int y) {
-		super();
-		this.team = team;
-		this.purpose = purpose;
-		setPosition(x, y);
-	}
-	 */
 
 	public Stone(Team team, int radius, int angle) {
 		super();

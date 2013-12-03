@@ -11,9 +11,9 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class House extends JPanel implements MouseListener {
 	private ArrayList<Stone> stones;
-	private HouseLayout layout;
 	protected PropertyChangeSupport propertyChangeSupport;
 
 
