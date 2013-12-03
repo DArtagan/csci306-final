@@ -1,7 +1,7 @@
 package curling;
 
-import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
 
@@ -30,7 +30,7 @@ public class Stone implements Comparable<Stone> {
 		this.purpose = purpose;
 		setPosition(x, y);
 	}
-	*/
+	 */
 
 	public Stone(Team team, int radius, int angle) {
 		super();

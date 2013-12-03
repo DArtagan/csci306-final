@@ -18,11 +18,11 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class CurlingMatch extends JFrame {
 	private int turn;
-	private Player currentPlayer;
+	public static Player currentPlayer;
 	private HashMap<Team, LinkedList<Integer>> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
-	private Purpose intention;
+	public static Purpose intention;
 	TeamPanel homePanel, awayPanel;
 	StatusPanel status;
 
@@ -52,6 +52,7 @@ public class CurlingMatch extends JFrame {
 		lowerPanel.add(status);
 		lowerPanel.add(awayPanel);
 
+		house.addPropertyChangeListener(new StonePlacedListener());
 		add(house);
 		add(lowerPanel);
 		JMenuBar menuBar = new JMenuBar();
@@ -97,9 +98,6 @@ public class CurlingMatch extends JFrame {
 	public class StonePlacedListener implements PropertyChangeListener {
 		public void propertyChange(PropertyChangeEvent event) {
 			if (event.getPropertyName().equals("StonePlaced")) {
-				Stone temp = currentPlayer.sendStone();
-				temp.setPurpose(intention);
-				house.addStone(temp);
 				advanceTurn();
 				intention = null;
 			}
