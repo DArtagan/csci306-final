@@ -114,22 +114,22 @@ public class CurlingMatch extends JFrame {
 	public void formTeams() {
 		// Form home team.
 		homeTeam.add(new Player(Team.HOME, Role.LEAD));
-		homeTeam.add(new Player(Team.HOME, Role.SKIP));
 		homeTeam.add(new Player(Team.HOME, Role.SECOND));
 		homeTeam.add(new Player(Team.HOME, Role.THIRD));
+		homeTeam.add(new Player(Team.HOME, Role.SKIP));
 
 		// Form away team.
 		awayTeam.add(new Player(Team.AWAY, Role.LEAD));
-		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
 		awayTeam.add(new Player(Team.AWAY, Role.SECOND));
 		awayTeam.add(new Player(Team.AWAY, Role.THIRD));
+		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
 	}
 
 	public void advanceTurn() {
 		if (turn % 2 == 0) {
-			currentPlayer = homeTeam.get(turn / 4);
+			currentPlayer = homeTeam.get((turn % 16) / 4);
 		} else {
-			currentPlayer = awayTeam.get(turn / 4);
+			currentPlayer = awayTeam.get((turn % 16) / 4);
 		}
 
 		// Score the previous turn
@@ -140,6 +140,10 @@ public class CurlingMatch extends JFrame {
 			} else {
 				score.get(key).add(0);
 			}
+		}
+
+		if (turn % 16 == 0) {
+			house.reset();
 		}
 
 		// Advance turn
