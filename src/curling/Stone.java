@@ -1,9 +1,5 @@
 package curling;
 
-<<<<<<< HEAD
-import java.awt.Graphics;
-=======
->>>>>>> dfdfd22be2ed85c99e83e5967e3df76979a7280b
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -14,12 +10,9 @@ public class Stone implements Comparable<Stone> {
 	private int radius;
 	private Purpose purpose;
 	private double angle;
-<<<<<<< HEAD
 	private final static int stoneSizeRadius = 5;
 	private final static int circleCenterX = HouseLayout.circleCenterX;
 	private final static int halfRinkWidth = HouseLayout.halfRinkWidth;
-=======
->>>>>>> dfdfd22be2ed85c99e83e5967e3df76979a7280b
 
 	public Stone(Team team) {
 		// FIXME: Set default starting positions for stones.
@@ -37,7 +30,7 @@ public class Stone implements Comparable<Stone> {
 		this.purpose = purpose;
 		setPosition(x, y);
 	}
-	*/
+	 */
 
 	public Stone(Team team, int radius, int angle) {
 		super();
@@ -108,7 +101,7 @@ public class Stone implements Comparable<Stone> {
 		Color colorHome = java.awt.Color.ORANGE;
 		Color colorAway = java.awt.Color.GREEN;
 		// Define shape sizes.
-		int stoneRadius = 5;
+		int stoneRadius = 8;
 		int x = Math.max(getX() - stoneRadius, stoneRadius);
 		int y = Math.max(getY() - stoneRadius, stoneRadius);
 		int height = stoneRadius*2;
@@ -123,15 +116,15 @@ public class Stone implements Comparable<Stone> {
 
 		// Draw the shape.
 		if (purpose == Purpose.DRAW) {
-			g.drawOval(x, y, width, height);
+			g.fillOval(x, y, width, height);
 		} else if (purpose == Purpose.TAKEOUT) {
-			g.drawRect(x, y, width, height);
+			g.fillRect(x, y, width, height);
 		} else if (purpose == Purpose.GUARD) {
 			Polygon triangle = new Polygon();
 			triangle.addPoint(x+stoneRadius, y);
 			triangle.addPoint(x, y+height);
 			triangle.addPoint(x+width, y+height);
-			g.drawPolygon(triangle);
+			g.fillPolygon(triangle);
 		} else {
 			// for debug purposes only!
 			g.drawString("You didn't set my purpose!", x, y);

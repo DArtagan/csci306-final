@@ -8,7 +8,7 @@ public class HouseLayout{//All parameters are in 1/10 feet, sorry if that's conf
 	public final static int whiteRadius = 80;
 	public final static int redRadius = 40;
 	public final static int insideRadius = 10;
-	public final static int rinkLength = 660;
+	public final static int rinkLength = 725;
 	public final static int rinkWidth = 300;
 	public final static int circleCenterX = 240;
 	public final static int halfRinkWidth = 150;

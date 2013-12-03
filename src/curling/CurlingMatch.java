@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -15,40 +17,46 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
+@SuppressWarnings("serial")
 public class CurlingMatch extends JFrame {
 	private int turn;
-	private Player currentPlayer;
-	private boolean gameOver;
-	private HashMap<Team, LinkedList<Integer>> score;
+	protected static Player currentPlayer;
+	private HashMap<Team, Integer> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
+	private boolean homeStart;
+	protected static Purpose intention;
 	TeamPanel homePanel, awayPanel;
 	StatusPanel status;
 
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
 		awayTeam = new LinkedList<Player>();
-		score = new HashMap<Team, LinkedList<Integer>>();
-		score.put(Team.HOME, new LinkedList<Integer>());
-		score.put(Team.AWAY, new LinkedList<Integer>());
-		score.get(Team.HOME).add(0);
-		score.get(Team.AWAY).add(0);
+		score = new HashMap<Team, Integer>();
+		score.put(Team.HOME, null);
+		score.put(Team.AWAY, null);
+		score.put(Team.HOME, 0);
+		score.put(Team.AWAY, 0);
 		house = new House();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void GUISetup(){
-		setSize(725, 700);
+		setSize(725, 650);
 		setLayout(new GridLayout(2, 0));
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new GridLayout(0, 3));
 		homePanel = new TeamPanel("Home");
 		awayPanel = new TeamPanel("Away");
+		homePanel.addPropertyChangeListener(new StoneIntentionListener(Team.HOME));
+		awayPanel.addPropertyChangeListener(new StoneIntentionListener(Team.AWAY));
 		status =  new StatusPanel();
 		lowerPanel.add(homePanel);
 		lowerPanel.add(status);
 		lowerPanel.add(awayPanel);
+		status.undoButton.addActionListener(new UndoButtonListener());
 
+		house.addPropertyChangeListener(new StonePlacedListener());
 		add(house);
 		add(lowerPanel);
 		JMenuBar menuBar = new JMenuBar();
@@ -61,22 +69,32 @@ public class CurlingMatch extends JFrame {
 		int coinFlip = (int) (Math.random() * 2);//coin toss if user wins team one starts else team two starts, 0 is heads, 1 is tails
 		if(reply == JOptionPane.YES_OPTION){
 			if(coinFlip == 0){
-				JOptionPane.showMessageDialog(null, "You won the flip, Team One starts");//team one starts
+				JOptionPane.showMessageDialog(null, "You won the flip, Home team starts");//team one starts
+				homeStart = true;
 			} else {
-				JOptionPane.showMessageDialog(null, "You lost the flip, Team Two starts");//team two starts
+				JOptionPane.showMessageDialog(null, "You lost the flip, Away team starts");//team two starts
+				homeStart = false;
 			}
 		} else {
 			if(coinFlip == 0){
-				JOptionPane.showMessageDialog(null, "You lost the flip, Team Two starts");//team two starts
+				JOptionPane.showMessageDialog(null, "You lost the flip, Away team starts");//team two starts
+				homeStart = false;
 			} else {
-				JOptionPane.showMessageDialog(null, "You won the flip, Team One starts");//team one starts
+				JOptionPane.showMessageDialog(null, "You won the flip, Home team starts");//team one starts
+				homeStart = true;
 			}
 		}
 	}
+
+	class UndoButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Add Undo Button Listener Stuff");
+		}
+	}
+
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
 		menu.add(createFileExitItem());
-
 		return menu;
 	}
 
@@ -92,46 +110,81 @@ public class CurlingMatch extends JFrame {
 		return item;
 	}
 
+	public class StoneIntentionListener implements PropertyChangeListener {
+		private Team team;
+
+		public StoneIntentionListener(Team team) {
+			this.team = team;
+		}
+
+		public void propertyChange(PropertyChangeEvent event) {
+			if (event.getPropertyName().equals("StoneIntention")) {
+				if (currentPlayer.getTeam() == team) {
+					intention = (Purpose) event.getNewValue();
+				}
+			}
+		}
+	}
+
+	public class StonePlacedListener implements PropertyChangeListener {
+		public void propertyChange(PropertyChangeEvent event) {
+			if (event.getPropertyName().equals("StonePlaced")) {
+				advanceTurn();
+				intention = null;
+			}
+		}
+	}
+
 	public void formTeams() {
 		// Form home team.
 		homeTeam.add(new Player(Team.HOME, Role.LEAD));
-		homeTeam.add(new Player(Team.HOME, Role.SKIP));
 		homeTeam.add(new Player(Team.HOME, Role.SECOND));
 		homeTeam.add(new Player(Team.HOME, Role.THIRD));
+		homeTeam.add(new Player(Team.HOME, Role.SKIP));
 
 		// Form away team.
 		awayTeam.add(new Player(Team.AWAY, Role.LEAD));
-		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
 		awayTeam.add(new Player(Team.AWAY, Role.SECOND));
 		awayTeam.add(new Player(Team.AWAY, Role.THIRD));
+		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
 	}
 
 	public void advanceTurn() {
-		if (turn % 2 == 0) {
-			currentPlayer = homeTeam.get(turn / 4);
-		} else {
-			currentPlayer = awayTeam.get(turn / 4);
+		if (turn % 16 == 0) {
+			house.reset();
 		}
-		house.addStone(currentPlayer.sendStone());
+
+		if (turn % 2 == 0 && homeStart) {
+			currentPlayer = homeTeam.get((turn % 16) / 4);
+		} else if (turn % 2 == 1 && homeStart){
+			currentPlayer = awayTeam.get((turn % 16) / 4);
+		} else if (turn % 2 == 0 && !homeStart){
+			currentPlayer = awayTeam.get((turn % 16) / 4);
+		} else if (turn % 2 == 1 && !homeStart){
+			currentPlayer = homeTeam.get((turn % 16) / 4);
+		}
 
 		// Score the previous turn
+		System.out.println(house.calcScore());
+
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
 			if (houseScore.keySet().contains(key)) {
-				score.get(key).add(house.calcScore().get(key));
+				score.put(key, house.calcScore().get(key));
 			} else {
-				score.get(key).add(0);
+				score.put(key, 0);
 			}
 		}
 
-		// Reset house
-		//house.reset();
-
 		// Advance turn
 		++turn;
+		homePanel.setScore(score.get(Team.HOME));
+		awayPanel.setScore(score.get(Team.AWAY));
+		status.team.setText(currentPlayer.getTeam().toString());
+		status.player.setText(currentPlayer.getRole().toString());
 	}
 
-	public HashMap<Team, LinkedList<Integer>> getScore() {
+	public HashMap<Team, Integer> getScore() {
 		return score;
 	}
 
@@ -165,5 +218,6 @@ public class CurlingMatch extends JFrame {
 		CurlingMatch game = new CurlingMatch();
 		game.GUISetup();
 		game.formTeams();
+		game.advanceTurn();
 	}
 }

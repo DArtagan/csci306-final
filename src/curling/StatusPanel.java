@@ -1,14 +1,20 @@
 package curling;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import curling.TeamPanel.ButtonListener;
+
 public class StatusPanel extends JPanel{
-	JTextField player, otherStatus1, otherStatus2;
+	JTextField player, team;
+	JButton undoButton;
 
 	public StatusPanel() {
 		setBorder(new TitledBorder (new EtchedBorder(), "Status"));
@@ -24,21 +30,19 @@ public class StatusPanel extends JPanel{
 		player.setEditable(false);
 		playerStatusPanel.add(player);
 		
-		JPanel otherStatus1StatusPanel = new JPanel();
-		otherStatus1StatusPanel.setBorder(new TitledBorder (new EtchedBorder(), "OtherStatus1"));
-		otherStatus1 =  new JTextField(10);
-		otherStatus1.setEditable(false);
-		otherStatus1StatusPanel.add(otherStatus1);
+		JPanel teamStatusPanel = new JPanel();
+		teamStatusPanel.setBorder(new TitledBorder (new EtchedBorder(), "Team"));
+		team =  new JTextField(10);
+		team.setEditable(false);
+		teamStatusPanel.add(team);
 		
-		JPanel otherStatus2StatusPanel = new JPanel();
-		otherStatus2StatusPanel.setBorder(new TitledBorder (new EtchedBorder(), "OtherStatus2"));
-		otherStatus2 =  new JTextField(10);
-		otherStatus2.setEditable(false);
-		otherStatus2StatusPanel.add(otherStatus2);
+		undoButton =  new JButton("UNDO");
 		
+		add(teamStatusPanel);
 		add(playerStatusPanel);
-		add(otherStatus1StatusPanel);
-		add(otherStatus2StatusPanel);
+		add(undoButton);
 	}
+	
+	
 
 }
