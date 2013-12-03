@@ -37,17 +37,12 @@ public class StatusPanel extends JPanel{
 		teamStatusPanel.add(team);
 		
 		undoButton =  new JButton("UNDO");
-		undoButton.addActionListener(new ButtonListener());
 		
 		add(teamStatusPanel);
 		add(playerStatusPanel);
 		add(undoButton);
 	}
 	
-	class ButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	}
+	
 
 }
