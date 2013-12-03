@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -22,6 +23,7 @@ public class CurlingMatch extends JFrame {
 	private HashMap<Team, Integer> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
+	private boolean homeStart;
 	protected static Purpose intention;
 	TeamPanel homePanel, awayPanel;
 	StatusPanel status;
@@ -60,6 +62,56 @@ public class CurlingMatch extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		setVisible(true);
+
+		String message = "Hello User, click yes for heads and no for tails.";//splash screen
+		int reply = JOptionPane.showConfirmDialog(this, message, "Welcome to Curling Simulator", JOptionPane.YES_NO_OPTION);
+		int coinFlip = (int) (Math.random() * 2);//coin toss if user wins team one starts else team two starts, 0 is heads, 1 is tails
+		if(reply == JOptionPane.YES_OPTION){
+			if(coinFlip == 0){
+				JOptionPane.showMessageDialog(null, "You won the flip, Home team starts");//team one starts
+				homeStart = true;
+			} else {
+				JOptionPane.showMessageDialog(null, "You lost the flip, Away team starts");//team two starts
+				homeStart = false;
+			}
+		} else {
+			if(coinFlip == 0){
+				JOptionPane.showMessageDialog(null, "You lost the flip, Away team starts");//team two starts
+				homeStart = false;
+			} else {
+				JOptionPane.showMessageDialog(null, "You won the flip, Home team starts");//team one starts
+				homeStart = true;
+			}
+		}
+	}
+
+	class UndoButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			house.removeLastStone();
+			if(turn > 1) {
+				if (turn % 2 == 0) {
+					currentPlayer = homeTeam.get(((turn-2) % 16) / 4);
+				} else {
+					currentPlayer = awayTeam.get(((turn-2) % 16) / 4);
+				}
+				currentPlayer.addStone(currentPlayer.getTeam());
+				--turn;
+			}
+			HashMap<Team, Integer> houseScore = house.calcScore();
+			for (Team key : score.keySet()) {
+				if (houseScore.keySet().contains(key)) {
+					score.put(key, house.calcScore().get(key));
+				} else {
+					score.put(key, 0);
+				}
+			}
+			homePanel.setScore(score.get(Team.HOME));
+			awayPanel.setScore(score.get(Team.AWAY));
+			status.team.setText(currentPlayer.getTeam().toString());
+			status.player.setText(currentPlayer.getRole().toString());
+			repaint();
+			System.out.println(turn);
+		}
 	}
 
 	private JMenu createFileMenu(){
@@ -105,35 +157,6 @@ public class CurlingMatch extends JFrame {
 		}
 	}
 
-	class UndoButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			house.removeLastStone();
-			if(turn > 1) {
-				if (turn % 2 == 0) {
-					currentPlayer = homeTeam.get(((turn-2) % 16) / 4);
-				} else {
-					currentPlayer = awayTeam.get(((turn-2) % 16) / 4);
-				}
-				currentPlayer.addStone(currentPlayer.getTeam());
-				--turn;
-			}
-			HashMap<Team, Integer> houseScore = house.calcScore();
-			for (Team key : score.keySet()) {
-				if (houseScore.keySet().contains(key)) {
-					score.put(key, house.calcScore().get(key));
-				} else {
-					score.put(key, 0);
-				}
-			}
-			homePanel.setScore(score.get(Team.HOME));
-			awayPanel.setScore(score.get(Team.AWAY));
-			status.team.setText(currentPlayer.getTeam().toString());
-			status.player.setText(currentPlayer.getRole().toString());
-			repaint();
-			System.out.println(turn);
-		}
-	}
-
 	public void formTeams() {
 		// Form home team.
 		homeTeam.add(new Player(Team.HOME, Role.LEAD));
@@ -153,13 +176,19 @@ public class CurlingMatch extends JFrame {
 			house.reset();
 		}
 
-		if (turn % 2 == 0) {
+		if (turn % 2 == 0 && homeStart) {
 			currentPlayer = homeTeam.get((turn % 16) / 4);
-		} else {
+		} else if (turn % 2 == 1 && homeStart){
 			currentPlayer = awayTeam.get((turn % 16) / 4);
+		} else if (turn % 2 == 0 && !homeStart){
+			currentPlayer = awayTeam.get((turn % 16) / 4);
+		} else if (turn % 2 == 1 && !homeStart){
+			currentPlayer = homeTeam.get((turn % 16) / 4);
 		}
 
 		// Score the previous turn
+		System.out.println(house.calcScore());
+
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
 			if (houseScore.keySet().contains(key)) {
