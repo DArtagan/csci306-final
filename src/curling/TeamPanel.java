@@ -57,11 +57,9 @@ public class TeamPanel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == drawButton) {
 				intention = Purpose.DRAW;
-			}
-			if(e.getSource() == drawButton) {
+			} else if(e.getSource() == takeButton) {
 				intention = Purpose.TAKEOUT;
-			}
-			if(e.getSource() == drawButton) {
+			} else if(e.getSource() == guardButton) {
 				intention = Purpose.GUARD;
 			}
 		}

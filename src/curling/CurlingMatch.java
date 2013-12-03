@@ -13,10 +13,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 
+@SuppressWarnings("serial")
 public class CurlingMatch extends JFrame {
 	private int turn;
 	private Player currentPlayer;
-	private boolean gameOver;
 	private HashMap<Team, LinkedList<Integer>> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
@@ -79,7 +79,7 @@ public class CurlingMatch extends JFrame {
 		homeTeam.add(new Player(Team.HOME, Role.SKIP));
 		homeTeam.add(new Player(Team.HOME, Role.SECOND));
 		homeTeam.add(new Player(Team.HOME, Role.THIRD));
-		
+
 		// Form away team.
 		awayTeam.add(new Player(Team.AWAY, Role.LEAD));
 		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
@@ -94,8 +94,6 @@ public class CurlingMatch extends JFrame {
 			currentPlayer = awayTeam.get(turn / 4);
 		}
 		house.addStone(currentPlayer.sendStone());
-		
-		
 
 		// Score the previous turn
 		HashMap<Team, Integer> houseScore = house.calcScore();
@@ -106,9 +104,6 @@ public class CurlingMatch extends JFrame {
 				score.get(key).add(0);
 			}
 		}
-
-		// Reset house
-		//house.reset();
 
 		// Advance turn
 		++turn;
