@@ -1,6 +1,5 @@
 package curling;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -92,6 +91,7 @@ public class CurlingMatch extends JFrame {
 		}
 	}
 
+
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
 		menu.add(createFileExitItem());
@@ -153,7 +153,7 @@ public class CurlingMatch extends JFrame {
 		if (turn % 16 == 0) {
 			house.reset();
 		}
-
+		
 		if (turn % 2 == 0 && homeStart) {
 			currentPlayer = homeTeam.get((turn % 16) / 4);
 		} else if (turn % 2 == 1 && homeStart){
