@@ -38,11 +38,12 @@ public class House extends JPanel implements MouseListener {
 		result.put(Team.AWAY, 0);
 
 		if (stones.size() > 0) {
-			Collections.sort(stones);
-			Stone baseStone = stones.get(0);
+			ArrayList<Stone> sorted_stones = new ArrayList<Stone>(stones);
+			Collections.sort(sorted_stones);
+			Stone baseStone = sorted_stones.get(0);
 
 			Team currentTeam = null;
-			for (Stone stone : stones) {
+			for (Stone stone : sorted_stones) {
 				currentTeam = stone.getTeam();
 				if (baseStone.compareTo(stone) == 0 && baseStone.getTeam() != currentTeam) {
 					result.put(baseStone.getTeam(), 0);
@@ -57,7 +58,6 @@ public class House extends JPanel implements MouseListener {
 		return result;
 	}
 
-	// These getters/setters are for use by unit tests only.
 	public ArrayList<Stone> getStones() {
 		return stones;
 	}
@@ -72,6 +72,12 @@ public class House extends JPanel implements MouseListener {
 
 	public void reset() {
 		stones.clear();
+	}
+
+	public void removeLastStone() {
+		if (stones.size() > 0) {
+			stones.remove(stones.size() - 1);
+		}
 	}
 
 	public void paintComponent(Graphics g){

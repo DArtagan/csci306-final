@@ -62,12 +62,6 @@ public class CurlingMatch extends JFrame {
 		setVisible(true);
 	}
 
-	class UndoButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Add Undo Button Listener Stuff");
-		}
-	}
-
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
 		menu.add(createFileExitItem());
@@ -111,6 +105,35 @@ public class CurlingMatch extends JFrame {
 		}
 	}
 
+	class UndoButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			house.removeLastStone();
+			if(turn > 1) {
+				if (turn % 2 == 0) {
+					currentPlayer = homeTeam.get(((turn-2) % 16) / 4);
+				} else {
+					currentPlayer = awayTeam.get(((turn-2) % 16) / 4);
+				}
+				currentPlayer.addStone(currentPlayer.getTeam());
+				--turn;
+			}
+			HashMap<Team, Integer> houseScore = house.calcScore();
+			for (Team key : score.keySet()) {
+				if (houseScore.keySet().contains(key)) {
+					score.put(key, house.calcScore().get(key));
+				} else {
+					score.put(key, 0);
+				}
+			}
+			homePanel.setScore(score.get(Team.HOME));
+			awayPanel.setScore(score.get(Team.AWAY));
+			status.team.setText(currentPlayer.getTeam().toString());
+			status.player.setText(currentPlayer.getRole().toString());
+			repaint();
+			System.out.println(turn);
+		}
+	}
+
 	public void formTeams() {
 		// Form home team.
 		homeTeam.add(new Player(Team.HOME, Role.LEAD));
@@ -137,8 +160,6 @@ public class CurlingMatch extends JFrame {
 		}
 
 		// Score the previous turn
-		System.out.println(house.calcScore());
-
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
 			if (houseScore.keySet().contains(key)) {

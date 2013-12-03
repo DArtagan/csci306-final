@@ -43,6 +43,10 @@ public class Player {
 	public ArrayList<Stone> getStones() {
 		return stones;
 	}
-	
-	
+
+	public void addStone(Team team) {
+		stones.add(new Stone(team));
+	}
+
+
 }
