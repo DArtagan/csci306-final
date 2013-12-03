@@ -3,6 +3,8 @@ package curling;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -20,6 +22,7 @@ public class CurlingMatch extends JFrame {
 	private HashMap<Team, LinkedList<Integer>> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
+	private Purpose intention;
 	TeamPanel homePanel, awayPanel;
 	StatusPanel status;
 
@@ -54,10 +57,10 @@ public class CurlingMatch extends JFrame {
 		menuBar.add(createFileMenu());
 		setVisible(true);
 	}
+
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
 		menu.add(createFileExitItem());
-
 		return menu;
 	}
 
@@ -71,6 +74,22 @@ public class CurlingMatch extends JFrame {
 		}
 		item.addActionListener(new MenuItemListener());
 		return item;
+	}
+
+	public class StoneIntentionListener implements PropertyChangeListener {
+		public void propertyChange(PropertyChangeEvent event) {
+			if (event.getPropertyName().equals("StoneIntention")) {
+				intention = (Purpose) event.getNewValue();
+			}
+		}
+	}
+
+	public class StonePlacedListener implements PropertyChangeListener {
+		public void propertyChange(PropertyChangeEvent event) {
+			if (event.getPropertyName().equals("StonePlaced")) {
+				advanceTurn();
+			}
+		}
 	}
 
 	public void formTeams() {

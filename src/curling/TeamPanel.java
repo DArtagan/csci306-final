@@ -3,6 +3,8 @@ package curling;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,16 +14,18 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
-public class TeamPanel extends JPanel{
+public class TeamPanel extends JPanel {
 	private String team;
 	private JTextField score;
 	private JLabel teamLabel;
 	private JButton drawButton, takeButton, guardButton;
 	private Purpose intention;
+	protected PropertyChangeSupport propertyChangeSupport;
 
 	public TeamPanel(String Team){
 		this.team = Team;
 		//setSize(400, 200);
+		propertyChangeSupport = new PropertyChangeSupport(this);
 		setBorder(new TitledBorder (new EtchedBorder(), team));
 		setLayout(new GridLayout(2, 0));
 		createLayout();
@@ -62,7 +66,12 @@ public class TeamPanel extends JPanel{
 			} else if(e.getSource() == guardButton) {
 				intention = Purpose.GUARD;
 			}
+			propertyChangeSupport.firePropertyChange("StoneIntention", null, intention);
 		}
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(listener);
 	}
 
 	public Purpose getIntention() {
