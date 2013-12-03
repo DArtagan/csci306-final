@@ -33,25 +33,26 @@ public class House extends JPanel implements MouseListener {
 
 	public HashMap<Team, Integer> calcScore() {
 		HashMap<Team, Integer> result = new HashMap<Team, Integer>();
-		if (stones.size() == 0) {
-			result.put(null, 0);
-			return result;
-		}
-		Collections.sort(stones);
-		Team team = Team.HOME;
-		Integer score = 0;
-		for (Stone stone : stones) {
-			if (stone.getTeam() == team) {
-				++score;
-			} else {
-				--score;
+
+		result.put(Team.HOME, 0);
+		result.put(Team.AWAY, 0);
+
+		if (stones.size() > 0) {
+			Collections.sort(stones);
+			Stone baseStone = stones.get(0);
+
+			Team currentTeam = null;
+			for (Stone stone : stones) {
+				currentTeam = stone.getTeam();
+				if (baseStone.compareTo(stone) == 0 && baseStone.getTeam() != currentTeam) {
+					result.put(baseStone.getTeam(), 0);
+					break;
+				} else if (currentTeam != baseStone.getTeam()) {
+					break;
+				} else {
+					result.put(currentTeam, result.get(currentTeam) + 1);
+				}
 			}
-		}
-		if(score >= 0){
-			result.put(Team.HOME, score);
-		} else {
-			score = score * -1;
-			result.put(Team.AWAY, score);
 		}
 		return result;
 	}
