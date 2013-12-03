@@ -133,6 +133,10 @@ public class CurlingMatch extends JFrame {
 		}
 
 		// Score the previous turn
+		if (turn % 16 == 0) {
+			house.reset();
+		}
+
 		HashMap<Team, Integer> houseScore = house.calcScore();
 		for (Team key : score.keySet()) {
 			if (houseScore.keySet().contains(key)) {
@@ -140,10 +144,6 @@ public class CurlingMatch extends JFrame {
 			} else {
 				score.get(key).add(0);
 			}
-		}
-
-		if (turn % 16 == 0) {
-			house.reset();
 		}
 
 		// Advance turn
