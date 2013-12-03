@@ -101,7 +101,7 @@ public class Stone implements Comparable<Stone> {
 		Color colorHome = java.awt.Color.ORANGE;
 		Color colorAway = java.awt.Color.GREEN;
 		// Define shape sizes.
-		int stoneRadius = 5;
+		int stoneRadius = 8;
 		int x = Math.max(getX() - stoneRadius, stoneRadius);
 		int y = Math.max(getY() - stoneRadius, stoneRadius);
 		int height = stoneRadius*2;
@@ -116,15 +116,15 @@ public class Stone implements Comparable<Stone> {
 
 		// Draw the shape.
 		if (purpose == Purpose.DRAW) {
-			g.drawOval(x, y, width, height);
+			g.fillOval(x, y, width, height);
 		} else if (purpose == Purpose.TAKEOUT) {
-			g.drawRect(x, y, width, height);
+			g.fillRect(x, y, width, height);
 		} else if (purpose == Purpose.GUARD) {
 			Polygon triangle = new Polygon();
 			triangle.addPoint(x+stoneRadius, y);
 			triangle.addPoint(x, y+height);
 			triangle.addPoint(x+width, y+height);
-			g.drawPolygon(triangle);
+			g.fillPolygon(triangle);
 		} else {
 			// for debug purposes only!
 			g.drawString("You didn't set my purpose!", x, y);
