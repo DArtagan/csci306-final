@@ -3,15 +3,15 @@ package curling;
 import java.awt.Graphics;
 
 
-public class HouseLayout{//All parameters are in 1/20 feet, sorry if that's confusing, ex blueRadius = 60 half feet = 6 feet
-	public static int blueRadius = 120;
-	public static int whiteRadius = 80;
-	public static int redRadius = 40;
-	public static int insideRadius = 10;
-	public static int rinkLength = 660;
-	public static int rinkWidth = 300;
-	public static int circleCenterX = 240;
-	public static int halfRinkWidth = 150;
+public class HouseLayout{//All parameters are in 1/10 feet, sorry if that's confusing, ex blueRadius = 120 1/10th feet =  feet
+	public final static int blueRadius = 120;
+	public final static int whiteRadius = 80;
+	public final static int redRadius = 40;
+	public final static int insideRadius = 10;
+	public final static int rinkLength = 660;
+	public final static int rinkWidth = 300;
+	public final static int circleCenterX = 240;
+	public final static int halfRinkWidth = 150;
 
 	public HouseLayout(){}
 
