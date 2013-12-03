@@ -95,6 +95,7 @@ public class House extends JPanel implements MouseListener {
 			propertyChangeSupport.firePropertyChange("StonePlaced", null, null);
 		}
 		System.out.println(stones);
+		repaint();
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener listener) {

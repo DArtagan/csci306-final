@@ -61,7 +61,7 @@ public class CurlingMatch extends JFrame {
 		menuBar.add(createFileMenu());
 		setVisible(true);
 	}
-	
+
 	class UndoButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Add Undo Button Listener Stuff");
