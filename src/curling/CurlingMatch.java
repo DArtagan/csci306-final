@@ -1,5 +1,6 @@
 package curling;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -53,6 +55,23 @@ public class CurlingMatch extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		setVisible(true);
+		
+		String message = "Hello User, click yes for heads and no for tails.";//splash screen
+		int reply = JOptionPane.showConfirmDialog(this, message, "Welcome to Curling Simulator", JOptionPane.YES_NO_OPTION);
+		int coinFlip = (int) (Math.random() * 2);//coin toss if user wins team one starts else team two starts, 0 is heads, 1 is tails
+		if(reply == JOptionPane.YES_OPTION){
+			if(coinFlip == 0){
+				JOptionPane.showMessageDialog(null, "You won the flip, Team One starts");//team one starts
+			} else {
+				JOptionPane.showMessageDialog(null, "You lost the flip, Team Two starts");//team two starts
+			}
+		} else {
+			if(coinFlip == 0){
+				JOptionPane.showMessageDialog(null, "You lost the flip, Team Two starts");//team two starts
+			} else {
+				JOptionPane.showMessageDialog(null, "You won the flip, Team One starts");//team one starts
+			}
+		}
 	}
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
