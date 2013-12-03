@@ -1,6 +1,9 @@
 package curling;
 
+<<<<<<< HEAD
 import java.awt.Graphics;
+=======
+>>>>>>> dfdfd22be2ed85c99e83e5967e3df76979a7280b
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -11,9 +14,12 @@ public class Stone implements Comparable<Stone> {
 	private int radius;
 	private Purpose purpose;
 	private double angle;
+<<<<<<< HEAD
 	private final static int stoneSizeRadius = 5;
 	private final static int circleCenterX = HouseLayout.circleCenterX;
 	private final static int halfRinkWidth = HouseLayout.halfRinkWidth;
+=======
+>>>>>>> dfdfd22be2ed85c99e83e5967e3df76979a7280b
 
 	public Stone(Team team) {
 		// FIXME: Set default starting positions for stones.
@@ -57,16 +63,16 @@ public class Stone implements Comparable<Stone> {
 	}
 
 	public void setPosition(Point point) {
-		// Normalize (prevent stones draw offscreen due to rounding errors).
+		// Prevent stones being drawn offscreen due to rounding errors.
 		point.x = Math.max(point.x, 0);
 		point.y = Math.max(point.y, 0);
 		// Translate to rink 0,0.
 		point.x -= HouseLayout.circleCenterX;
-		point.y -= HouseLayout.halfRinkWidth;
+		point.y = HouseLayout.halfRinkWidth - point.y;
 		// Convert from rectangular to polar.
-
 		radius = (int) Math.sqrt(Math.pow(point.x,  2) + Math.pow(point.y,  2));
-		angle = Math.acos((double)point.x/radius);
+		// This must be atan2, in order to get the correct signed value.
+		angle = Math.atan2(point.y, point.x);
 	}
 
 	public void setPosition(int x, int y) {
@@ -75,16 +81,16 @@ public class Stone implements Comparable<Stone> {
 	}
 
 	public Point getPoint() {
-		// Convert from polar to rectangular.
-		Point point = new Point();
-		point.x = (int) (radius*Math.cos(angle));
-		point.y = (int) (radius*Math.sin(angle));
-		// Translate to JFrame 0,0.
-		point.x += HouseLayout.circleCenterX;
-		point.y = -point.y + HouseLayout.halfRinkWidth;
+		// Convert from polar to rectangular and translate to JFrame 0,0.
+		int x = HouseLayout.circleCenterX + (int) (radius * Math.cos(angle));
+		int y = HouseLayout.halfRinkWidth - (int) (radius * Math.sin(angle));
+
 		// Prevent stones being drawn offscreen due to rounding errors.
-		point.x = Math.max(point.x, 0);
-		point.y = Math.max(point.y, 0);
+		Point point = new Point();
+		point.x = Math.max(x, 0);
+		point.x = Math.min(point.x, HouseLayout.rinkLength);
+		point.y = Math.max(y, 0);
+		point.y = Math.min(point.y, HouseLayout.rinkWidth);
 
 		return point;
 	}
@@ -99,10 +105,10 @@ public class Stone implements Comparable<Stone> {
 
 	public void draw(Graphics g) {
 		// Define colors.
-		Color colorHome = java.awt.Color.GREEN;
-		Color colorAway = java.awt.Color.BLACK;
+		Color colorHome = java.awt.Color.ORANGE;
+		Color colorAway = java.awt.Color.GREEN;
 		// Define shape sizes.
-		int stoneRadius = 8;
+		int stoneRadius = 5;
 		int x = Math.max(getX() - stoneRadius, stoneRadius);
 		int y = Math.max(getY() - stoneRadius, stoneRadius);
 		int height = stoneRadius*2;
