@@ -89,10 +89,14 @@ public class CurlingMatch extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			house.removeLastStone();
 			if(turn > 1) {
-				if (turn % 2 == 0) {
-					currentPlayer = homeTeam.get(((turn-2) % 16) / 4);
-				} else {
-					currentPlayer = awayTeam.get(((turn-2) % 16) / 4);
+				if (turn % 2 == 0 && homeStart) {
+					currentPlayer = homeTeam.get(((turn - 2) % 16) / 4);
+				} else if (turn % 2 == 1 && homeStart){
+					currentPlayer = awayTeam.get(((turn - 2) % 16) / 4);
+				} else if (turn % 2 == 0 && !homeStart){
+					currentPlayer = awayTeam.get(((turn - 2) % 16) / 4);
+				} else if (turn % 2 == 1 && !homeStart){
+					currentPlayer = homeTeam.get(((turn - 2) % 16) / 4);
 				}
 				currentPlayer.addStone(currentPlayer.getTeam());
 				--turn;
