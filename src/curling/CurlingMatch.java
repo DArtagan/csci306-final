@@ -20,6 +20,8 @@ public class CurlingMatch extends JFrame {
 	private HashMap<Team, LinkedList<Integer>> score;
 	private LinkedList<Player> homeTeam, awayTeam;
 	private House house;
+	TeamPanel homePanel, awayPanel;
+	StatusPanel status;
 
 	public CurlingMatch() {
 		homeTeam = new LinkedList<Player>();
@@ -34,13 +36,15 @@ public class CurlingMatch extends JFrame {
 	}
 
 	public void GUISetup(){
-		setSize(660, 600);
+		setSize(725, 700);
 		setLayout(new GridLayout(2, 0));
 		JPanel lowerPanel = new JPanel();
-		lowerPanel.setLayout(new GridLayout(0, 2));
-		TeamPanel homePanel = new TeamPanel("Home");
-		TeamPanel awayPanel = new TeamPanel("Away");
+		lowerPanel.setLayout(new GridLayout(0, 3));
+		homePanel = new TeamPanel("Home");
+		awayPanel = new TeamPanel("Away");
+		status =  new StatusPanel();
 		lowerPanel.add(homePanel);
+		lowerPanel.add(status);
 		lowerPanel.add(awayPanel);
 
 		add(house);

@@ -21,11 +21,11 @@ public class TeamPanel extends JPanel{
 
 	public TeamPanel(String Team){
 		this.team = Team;
-		setSize(400, 200);
+		//setSize(400, 200);
 		setBorder(new TitledBorder (new EtchedBorder(), team));
 		setLayout(new GridLayout(2, 0));
 		createLayout();
-		setVisible(true);
+		//setVisible(true);
 	}
 
 	public void createLayout(){
