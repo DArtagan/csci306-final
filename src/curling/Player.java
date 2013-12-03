@@ -43,4 +43,6 @@ public class Player {
 	public ArrayList<Stone> getStones() {
 		return stones;
 	}
+	
+	
 }

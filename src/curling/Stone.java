@@ -1,11 +1,7 @@
 package curling;
 
-<<<<<<< HEAD
 import java.awt.Graphics;
-=======
->>>>>>> dfdfd22be2ed85c99e83e5967e3df76979a7280b
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
 
@@ -14,12 +10,9 @@ public class Stone implements Comparable<Stone> {
 	private int radius;
 	private Purpose purpose;
 	private double angle;
-<<<<<<< HEAD
 	private final static int stoneSizeRadius = 5;
 	private final static int circleCenterX = HouseLayout.circleCenterX;
 	private final static int halfRinkWidth = HouseLayout.halfRinkWidth;
-=======
->>>>>>> dfdfd22be2ed85c99e83e5967e3df76979a7280b
 
 	public Stone(Team team) {
 		// FIXME: Set default starting positions for stones.

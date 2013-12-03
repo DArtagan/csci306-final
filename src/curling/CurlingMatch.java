@@ -79,7 +79,7 @@ public class CurlingMatch extends JFrame {
 		homeTeam.add(new Player(Team.HOME, Role.SKIP));
 		homeTeam.add(new Player(Team.HOME, Role.SECOND));
 		homeTeam.add(new Player(Team.HOME, Role.THIRD));
-
+		
 		// Form away team.
 		awayTeam.add(new Player(Team.AWAY, Role.LEAD));
 		awayTeam.add(new Player(Team.AWAY, Role.SKIP));
@@ -94,6 +94,8 @@ public class CurlingMatch extends JFrame {
 			currentPlayer = awayTeam.get(turn / 4);
 		}
 		house.addStone(currentPlayer.sendStone());
+		
+		
 
 		// Score the previous turn
 		HashMap<Team, Integer> houseScore = house.calcScore();
@@ -110,6 +112,8 @@ public class CurlingMatch extends JFrame {
 
 		// Advance turn
 		++turn;
+		status.team.setText(currentPlayer.getTeam().toString());
+		status.player.setText(currentPlayer.getRole().toString());
 	}
 
 	public HashMap<Team, LinkedList<Integer>> getScore() {
@@ -146,5 +150,6 @@ public class CurlingMatch extends JFrame {
 		CurlingMatch game = new CurlingMatch();
 		game.GUISetup();
 		game.formTeams();
+
 	}
 }
