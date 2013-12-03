@@ -67,6 +67,7 @@ public class TeamPanel extends JPanel {
 				intention = Purpose.GUARD;
 			}
 			propertyChangeSupport.firePropertyChange("StoneIntention", null, intention);
+			intention = null;
 		}
 	}
 

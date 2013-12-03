@@ -45,6 +45,8 @@ public class CurlingMatch extends JFrame {
 		lowerPanel.setLayout(new GridLayout(0, 3));
 		homePanel = new TeamPanel("Home");
 		awayPanel = new TeamPanel("Away");
+		homePanel.addPropertyChangeListener(new StoneIntentionListener(Team.HOME));
+		awayPanel.addPropertyChangeListener(new StoneIntentionListener(Team.AWAY));
 		status =  new StatusPanel();
 		lowerPanel.add(homePanel);
 		lowerPanel.add(status);
@@ -77,9 +79,17 @@ public class CurlingMatch extends JFrame {
 	}
 
 	public class StoneIntentionListener implements PropertyChangeListener {
+		private Team team;
+
+		public StoneIntentionListener(Team team) {
+			this.team = team;
+		}
+
 		public void propertyChange(PropertyChangeEvent event) {
 			if (event.getPropertyName().equals("StoneIntention")) {
-				intention = (Purpose) event.getNewValue();
+				if (currentPlayer.getTeam() == team) {
+					intention = (Purpose) event.getNewValue();
+				}
 			}
 		}
 	}
@@ -87,7 +97,11 @@ public class CurlingMatch extends JFrame {
 	public class StonePlacedListener implements PropertyChangeListener {
 		public void propertyChange(PropertyChangeEvent event) {
 			if (event.getPropertyName().equals("StonePlaced")) {
+				Stone temp = currentPlayer.sendStone();
+				temp.setPurpose(intention);
+				house.addStone(temp);
 				advanceTurn();
+				intention = null;
 			}
 		}
 	}
@@ -112,7 +126,6 @@ public class CurlingMatch extends JFrame {
 		} else {
 			currentPlayer = awayTeam.get(turn / 4);
 		}
-		house.addStone(currentPlayer.sendStone());
 
 		// Score the previous turn
 		HashMap<Team, Integer> houseScore = house.calcScore();
@@ -164,6 +177,6 @@ public class CurlingMatch extends JFrame {
 		CurlingMatch game = new CurlingMatch();
 		game.GUISetup();
 		game.formTeams();
-
+		game.advanceTurn();
 	}
 }
