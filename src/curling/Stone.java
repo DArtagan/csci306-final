@@ -78,7 +78,7 @@ public class Stone implements Comparable<Stone> {
 		// Translate to JFrame 0,0.
 		point.x += HouseLayout.circleCenterX;
 		point.y = -point.y + HouseLayout.halfRinkWidth;
-		// Normalize (prevent stones draw offscreen due to rounding errors).
+		// Prevent stones being drawn offscreen due to rounding errors.
 		point.x = Math.max(point.x, 0);
 		point.y = Math.max(point.y, 0);
 
